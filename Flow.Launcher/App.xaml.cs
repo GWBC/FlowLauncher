@@ -48,10 +48,10 @@ namespace Flow.Launcher
 
         private async void OnStartupAsync(object sender, StartupEventArgs e)
         {
+            _portable.PreStartCleanUpAfterPortabilityUpdate();
+
             await Stopwatch.NormalAsync("|App.OnStartup|Startup cost", async () =>
             {
-                _portable.PreStartCleanUpAfterPortabilityUpdate();
-
                 Log.Info(
                     "|App.OnStartup|Begin Flow Launcher startup ----------------------------------------------------");
                 Log.Info($"|App.OnStartup|Runtime info:{ErrorReporting.RuntimeInfo()}");

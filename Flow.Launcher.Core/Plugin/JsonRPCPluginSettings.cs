@@ -7,6 +7,7 @@ using System.Windows.Documents;
 using System.Windows.Forms;
 using Flow.Launcher.Infrastructure.Storage;
 using Flow.Launcher.Plugin;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using CheckBox = System.Windows.Controls.CheckBox;
 using ComboBox = System.Windows.Controls.ComboBox;
 using Control = System.Windows.Controls.Control;
@@ -207,7 +208,7 @@ namespace Flow.Launcher.Core.Plugin
                     {
                         var textBox = new TextBox()
                         {
-                            Text = Settings[attribute.Name] as string ?? string.Empty,
+                            Text = Settings[attribute.Name].ToString(),
                             Margin = settingControlMargin,
                             HorizontalAlignment = System.Windows.HorizontalAlignment.Stretch,
                             ToolTip = attribute.Description
@@ -216,6 +217,11 @@ namespace Flow.Launcher.Core.Plugin
                         textBox.TextChanged += (_, _) =>
                         {
                             Settings[attribute.Name] = textBox.Text;
+                        };
+
+                        textBox.LostFocus += (_, _) =>
+                        {
+                            Save();
                         };
 
                         contentControl = textBox;
@@ -236,14 +242,19 @@ namespace Flow.Launcher.Core.Plugin
                         var textBox = new TextBox()
                         {
                             Margin = new Thickness(10, 0, 0, 0),
-                            Text = Settings[attribute.Name] as string ?? string.Empty,
+                            Text = Settings[attribute.Name].ToString(),
                             HorizontalAlignment = System.Windows.HorizontalAlignment.Stretch,
                             ToolTip = attribute.Description
-                        };
+                        }; 
 
                         textBox.TextChanged += (_, _) =>
                         {
                             Settings[attribute.Name] = textBox.Text;
+                        };
+
+                        textBox.LostFocus += (_, _) =>
+                        {
+                            Save();
                         };
 
                         var Btn = new System.Windows.Controls.Button()
@@ -265,8 +276,9 @@ namespace Flow.Launcher.Core.Plugin
                                 FolderBrowserDialog folderDialog => folderDialog.SelectedPath,
                                 OpenFileDialog fileDialog => fileDialog.FileName,
                             };
-                            textBox.Text = path;
+                            textBox.Text = path;                            
                             Settings[attribute.Name] = path;
+                            Save();
                         };
 
                         var dockPanel = new DockPanel() { Margin = settingControlMargin };
@@ -296,13 +308,18 @@ namespace Flow.Launcher.Core.Plugin
                             TextWrapping = TextWrapping.WrapWithOverflow,
                             AcceptsReturn = true,
                             HorizontalAlignment = System.Windows.HorizontalAlignment.Stretch,
-                            Text = Settings[attribute.Name] as string ?? string.Empty,
+                            Text = Settings[attribute.Name].ToString(),
                             ToolTip = attribute.Description
                         };
 
                         textBox.TextChanged += (sender, _) =>
                         {
                             Settings[attribute.Name] = ((TextBox)sender).Text;
+                        };
+
+                        textBox.LostFocus += (_, _) =>
+                        {
+                            Save();
                         };
 
                         contentControl = textBox;
@@ -322,7 +339,7 @@ namespace Flow.Launcher.Core.Plugin
                         var passwordBox = new PasswordBox()
                         {
                             Margin = settingControlMargin,
-                            Password = Settings[attribute.Name] as string ?? string.Empty,
+                            Password = Settings[attribute.Name].ToString(),
                             PasswordChar = attribute.passwordChar == default ? '*' : attribute.passwordChar,
                             HorizontalAlignment = System.Windows.HorizontalAlignment.Stretch,
                             ToolTip = attribute.Description
@@ -331,6 +348,11 @@ namespace Flow.Launcher.Core.Plugin
                         passwordBox.PasswordChanged += (sender, _) =>
                         {
                             Settings[attribute.Name] = ((PasswordBox)sender).Password;
+                        };
+
+                        passwordBox.LostFocus += (_, _) =>
+                        {
+                            Save();
                         };
 
                         contentControl = passwordBox;
@@ -359,6 +381,7 @@ namespace Flow.Launcher.Core.Plugin
                         comboBox.SelectionChanged += (sender, _) =>
                         {
                             Settings[attribute.Name] = (string)((System.Windows.Controls.ComboBox)sender).SelectedItem;
+                            Save();
                         };
 
                         contentControl = comboBox;
@@ -388,6 +411,7 @@ namespace Flow.Launcher.Core.Plugin
                         checkBox.Click += (sender, _) =>
                         {
                             Settings[attribute.Name] = ((CheckBox)sender).IsChecked;
+                            Save();
                         };
 
                         contentControl = checkBox;

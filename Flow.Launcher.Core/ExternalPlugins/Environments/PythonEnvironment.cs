@@ -20,9 +20,9 @@ namespace Flow.Launcher.Core.ExternalPlugins.Environments
 
         internal override string ExecutablePath => Path.Combine(InstallPath, "pythonw.exe");
 
-        internal override string FileDialogFilter => "Python|pythonw.exe";
+        internal override string FileDialogFilter => "python|pythonw.*";
 
-        internal override string PluginsSettingsFilePath { get => PluginSettings.PythonExecutablePath; set => PluginSettings.PythonExecutablePath = value; }
+        internal override string PluginsSettingsFilePath { get => PluginSettings.PythonExecutablePath; set => PluginSettings.PythonExecutablePathUI = value; }
 
         internal PythonEnvironment(List<PluginMetadata> pluginMetadataList, PluginsSettings pluginSettings) : base(pluginMetadataList, pluginSettings) { }
 

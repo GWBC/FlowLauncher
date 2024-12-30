@@ -149,38 +149,38 @@ namespace Flow.Launcher.Core.ExternalPlugins.Environments
                 if (IsUsingPortablePath(settings.PluginSettings.PythonExecutablePath, DataLocation.PythonEnvironmentName)
                     && !settings.PluginSettings.PythonExecutablePath.StartsWith(DataLocation.PortableDataPath))
                 {
-                    settings.PluginSettings.PythonExecutablePath
+                    settings.PluginSettings.PythonExecutablePathUI
                         = GetUpdatedEnvironmentPath(settings.PluginSettings.PythonExecutablePath);
                 }
 
                 if (IsUsingPortablePath(settings.PluginSettings.NodeExecutablePath, DataLocation.NodeEnvironmentName)
                     && !settings.PluginSettings.NodeExecutablePath.StartsWith(DataLocation.PortableDataPath))
                 {
-                    settings.PluginSettings.NodeExecutablePath
+                    settings.PluginSettings.NodeExecutablePathUI
                         = GetUpdatedEnvironmentPath(settings.PluginSettings.NodeExecutablePath);
                 }
 
                 // When user has switched from roaming to portable
                 if (IsUsingRoamingPath(settings.PluginSettings.PythonExecutablePath))
                 {
-                    settings.PluginSettings.PythonExecutablePath
+                    settings.PluginSettings.PythonExecutablePathUI
                         = settings.PluginSettings.PythonExecutablePath.Replace(DataLocation.RoamingDataPath, DataLocation.PortableDataPath);
                 }
 
                 if (IsUsingRoamingPath(settings.PluginSettings.NodeExecutablePath))
                 {
-                    settings.PluginSettings.NodeExecutablePath
+                    settings.PluginSettings.NodeExecutablePathUI
                         = settings.PluginSettings.NodeExecutablePath.Replace(DataLocation.RoamingDataPath, DataLocation.PortableDataPath);
                 }
             }
             else
             {
                 if (IsUsingPortablePath(settings.PluginSettings.PythonExecutablePath, DataLocation.PythonEnvironmentName))
-                    settings.PluginSettings.PythonExecutablePath
+                    settings.PluginSettings.PythonExecutablePathUI
                         = GetUpdatedEnvironmentPath(settings.PluginSettings.PythonExecutablePath);
 
                 if (IsUsingPortablePath(settings.PluginSettings.NodeExecutablePath, DataLocation.NodeEnvironmentName))
-                    settings.PluginSettings.NodeExecutablePath
+                    settings.PluginSettings.NodeExecutablePathUI
                         = GetUpdatedEnvironmentPath(settings.PluginSettings.NodeExecutablePath);
             }
         }

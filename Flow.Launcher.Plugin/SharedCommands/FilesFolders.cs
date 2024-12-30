@@ -151,6 +151,43 @@ namespace Flow.Launcher.Plugin.SharedCommands
         }
 
         /// <summary>
+        /// Create directory
+        /// </summary>
+        /// <param name="path"></param>
+        /// <returns></returns>
+        public static void CreateDir(this string path)
+        {
+            try
+            {
+                if (Directory.Exists(path))
+                {
+                    return;
+                }
+
+                Directory.CreateDirectory(path);
+            }
+            catch (Exception)
+            {
+            }            
+        }
+
+        /// <summary>
+        /// Delete file
+        /// </summary>
+        /// <param name="filePath"></param>
+        /// <returns></returns>
+        public static void Delete(this string filePath)
+        {
+            try
+            {
+                File.Delete(filePath);
+            }
+            catch (Exception)
+            {
+            }           
+        }
+
+        /// <summary>
         /// Open a directory window (using the OS's default handler, usually explorer)
         /// </summary>
         /// <param name="fileOrFolderPath"></param>

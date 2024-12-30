@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Windows.Forms;
 using CommunityToolkit.Mvvm.Input;
@@ -119,6 +120,9 @@ public partial class SettingsPaneGeneralViewModel : BaseModel
         {
             InternationalizationManager.Instance.ChangeLanguage(value);
 
+            //通知字段变化
+            AlwaysPreviewToolTip = "update";
+
             if (InternationalizationManager.Instance.PromptShouldUsePinyin(value))
                 ShouldUsePinyin = true;
 
@@ -134,10 +138,14 @@ public partial class SettingsPaneGeneralViewModel : BaseModel
 
     public List<Language> Languages => InternationalizationManager.Instance.LoadAvailableLanguages();
 
-    public string AlwaysPreviewToolTip => string.Format(
-        InternationalizationManager.Instance.GetTranslation("AlwaysPreviewToolTip"),
-        Settings.PreviewHotkey
-    );
+    public string AlwaysPreviewToolTip
+    {
+        get => string.Format(
+                InternationalizationManager.Instance.GetTranslation("AlwaysPreviewToolTip"),
+                Settings.PreviewHotkey
+            );
+        set { }
+    }
 
     private string GetFileFromDialog(string title, string filter = "")
     {
@@ -182,11 +190,11 @@ public partial class SettingsPaneGeneralViewModel : BaseModel
     {
         var selectedFile = GetFileFromDialog(
             InternationalizationManager.Instance.GetTranslation("selectPythonExecutable"),
-            "Python|pythonw.exe"
+            "python|pythonw.*"
         );
 
         if (!string.IsNullOrEmpty(selectedFile))
-            Settings.PluginSettings.PythonExecutablePath = selectedFile;
+            Settings.PluginSettings.PythonExecutablePathUI = selectedFile;
     }
 
     [RelayCommand]
@@ -194,11 +202,11 @@ public partial class SettingsPaneGeneralViewModel : BaseModel
     {
         var selectedFile = GetFileFromDialog(
             InternationalizationManager.Instance.GetTranslation("selectNodeExecutable"),
-            "node|*.exe"
+            "node|node.*"
         );
 
         if (!string.IsNullOrEmpty(selectedFile))
-            Settings.PluginSettings.NodeExecutablePath = selectedFile;
+            Settings.PluginSettings.NodeExecutablePathUI = selectedFile;
     }
 
     [RelayCommand]

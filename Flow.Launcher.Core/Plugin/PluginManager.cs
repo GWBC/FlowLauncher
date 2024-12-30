@@ -135,8 +135,15 @@ namespace Flow.Launcher.Core.Plugin
 
         static PluginManager()
         {
-            // validate user directory
-            Directory.CreateDirectory(DataLocation.PluginsDirectory);
+            try
+            {
+                // validate user directory
+                Directory.CreateDirectory(DataLocation.PluginsDirectory);
+            }
+            catch (Exception)
+            {
+            }
+
             // force old plugins use new python binding
             DeletePythonBinding();
         }

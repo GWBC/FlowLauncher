@@ -1,13 +1,20 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
 using Flow.Launcher.Plugin;
 
 namespace Flow.Launcher.Infrastructure.UserSettings
 {
     public class PluginsSettings : BaseModel
     {
-        private string pythonExecutablePath = string.Empty;
-        public string PythonExecutablePath {
-            get { return pythonExecutablePath; }
+        private string pythonExecutablePath = "%LOCALAPPDATA%/mise/shims/pythonw.cmd";
+
+        public string PythonExecutablePathUI
+        {
+            get
+            {
+                return pythonExecutablePath;
+            }
             set
             {
                 pythonExecutablePath = value;
@@ -15,14 +22,50 @@ namespace Flow.Launcher.Infrastructure.UserSettings
             }
         }
 
-        private string nodeExecutablePath = string.Empty;
-        public string NodeExecutablePath
+        public string PythonExecutablePath {
+            get 
+            {
+                var path =  Environment.ExpandEnvironmentVariables(pythonExecutablePath);
+                try
+                {
+                    path = Path.GetFullPath(path);
+                }
+                catch (System.Exception)
+                {
+
+                }
+               
+                return path; 
+            }
+        }
+
+        private string nodeExecutablePath = "%LOCALAPPDATA%/mise/shims/node.cmd";
+
+        public string NodeExecutablePathUI
         {
             get { return nodeExecutablePath; }
             set 
             {
                 nodeExecutablePath = value;
                 Constant.NodePath = value;
+            }
+        }
+
+        public string NodeExecutablePath
+        {
+            get 
+            {
+                var path = Environment.ExpandEnvironmentVariables(nodeExecutablePath);
+                try
+                {
+                    path = Path.GetFullPath(path);
+                }
+                catch (System.Exception)
+                {
+
+                }
+
+                return path;
             }
         }
 

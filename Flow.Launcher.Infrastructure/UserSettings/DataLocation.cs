@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using Flow.Launcher.Plugin.SharedCommands;
 
 namespace Flow.Launcher.Infrastructure.UserSettings
 {
@@ -19,14 +20,21 @@ namespace Flow.Launcher.Infrastructure.UserSettings
 
         public static bool PortableDataLocationInUse()
         {
-            if (Directory.Exists(PortableDataPath) && !File.Exists(DeletionIndicatorFile))
+            if (Directory.Exists(PortableDataPath) &&
+                !Path.Combine(PortableDataPath, DeletionIndicatorFile).FileExists())
                 return true;
 
             return false;
         }
 
-        public static readonly string PluginsDirectory = Path.Combine(DataDirectory(), Constant.Plugins);
-        public static readonly string PluginSettingsDirectory = Path.Combine(DataDirectory(), "Settings", Constant.Plugins);
+        public static string PluginsDirectory {
+            get => Path.Combine(DataDirectory(), Constant.Plugins);
+        }
+
+        public static string PluginSettingsDirectory
+        {
+            get => Path.Combine(DataDirectory(), "Settings", Constant.Plugins);
+        }
 
         public const string PythonEnvironmentName = "Python";
         public const string NodeEnvironmentName = "Node.js";

@@ -13,7 +13,7 @@ namespace Flow.Launcher.Infrastructure.UserSettings
 {
     public class Settings : BaseModel, IHotkeySettings
     {
-        private string language = "en";
+        private string language = "zh-cn";
         private string _theme = Constant.DefaultTheme;
         public string Hotkey { get; set; } = $"{KeyConstant.Alt} + {KeyConstant.Space}";
         public string OpenResultModifiers { get; set; } = KeyConstant.Alt;
@@ -184,7 +184,7 @@ namespace Flow.Launcher.Infrastructure.UserSettings
         /// <summary>
         /// when false Alphabet static service will always return empty results
         /// </summary>
-        public bool ShouldUsePinyin { get; set; } = false;
+        public bool ShouldUsePinyin { get; set; } = true;
 
         public bool AlwaysPreview { get; set; } = false;
 
