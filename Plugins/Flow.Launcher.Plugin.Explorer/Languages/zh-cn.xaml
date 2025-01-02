@@ -1,5 +1,8 @@
-﻿<?xml version="1.0"?>
-<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:system="clr-namespace:System;assembly=mscorlib">
+﻿<?xml version="1.0" ?>
+<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:system="clr-namespace:System;assembly=mscorlib">
 
     <!--  Dialogues  -->
     <system:String x:Key="plugin_explorer_make_selection_warning">请先进行选择</system:String>
@@ -153,7 +156,7 @@
     <system:String x:Key="flowlauncher_plugin_everything_installationsuccess_subtitle">成功安装了 Everything 服务</system:String>
     <system:String x:Key="flowlauncher_plugin_everything_installationfailed_subtitle">自动安装 Everything 服务失败。请从 https://www.voidtools.com 手动下载并安装。</system:String>
     <system:String x:Key="flowlauncher_plugin_everything_run_service">单击此处开始</system:String>
-    <system:String x:Key="flowlauncher_plugin_everything_installing_select">无法找到任何 Everything 安装，您想手动选择一个位置吗？{0}{0} 单击 不 将自动为您安装 Everything。</system:String>
+    <system:String x:Key="flowlauncher_plugin_everything_installing_select">无法找到任何 Everything 安装，您想手动选择一个位置吗？{0}{0}否则将自动为您安装 Everything。</system:String>
     <system:String x:Key="flowlauncher_plugin_everything_enable_content_search">您想要启用 Everything 的内容搜索功能吗？</system:String>
     <system:String x:Key="flowlauncher_plugin_everything_enable_content_search_tips">如果没有索引，它可能会非常慢（索引仅在 Everything v1.5+ 中支持）</system:String>
 

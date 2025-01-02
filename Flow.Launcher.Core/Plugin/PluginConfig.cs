@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.IO;
@@ -102,7 +102,6 @@ namespace Flow.Launcher.Core.Plugin
             string configPath = Path.Combine(pluginDirectory, Constant.PluginMetadataFileName);
             if (!File.Exists(configPath))
             {
-                Log.Error($"|PluginConfig.GetPluginMetadata|Didn't find config file <{configPath}>");
                 return null;
             }
 

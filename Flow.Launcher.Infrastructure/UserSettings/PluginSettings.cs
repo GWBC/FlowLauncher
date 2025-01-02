@@ -7,65 +7,25 @@ namespace Flow.Launcher.Infrastructure.UserSettings
 {
     public class PluginsSettings : BaseModel
     {
-        private string pythonExecutablePath = "%LOCALAPPDATA%/mise/shims/pythonw.cmd";
-
-        public string PythonExecutablePathUI
+        private string pythonExecutablePath = "";
+        public string PythonExecutablePath
         {
-            get
-            {
-                return pythonExecutablePath;
-            }
+            get => pythonExecutablePath;
             set
             {
-                pythonExecutablePath = value;
+                pythonExecutablePath = value ?? "";
                 Constant.PythonPath = value;
             }
         }
 
-        public string PythonExecutablePath {
-            get 
-            {
-                var path =  Environment.ExpandEnvironmentVariables(pythonExecutablePath);
-                try
-                {
-                    path = Path.GetFullPath(path);
-                }
-                catch (System.Exception)
-                {
-
-                }
-               
-                return path; 
-            }
-        }
-
-        private string nodeExecutablePath = "%LOCALAPPDATA%/mise/shims/node.cmd";
-
-        public string NodeExecutablePathUI
-        {
-            get { return nodeExecutablePath; }
-            set 
-            {
-                nodeExecutablePath = value;
-                Constant.NodePath = value;
-            }
-        }
-
+        private string nodeExecutablePath = "";
         public string NodeExecutablePath
         {
-            get 
+            get => nodeExecutablePath;
+            set 
             {
-                var path = Environment.ExpandEnvironmentVariables(nodeExecutablePath);
-                try
-                {
-                    path = Path.GetFullPath(path);
-                }
-                catch (System.Exception)
-                {
-
-                }
-
-                return path;
+                nodeExecutablePath = value ?? "";
+                Constant.NodePath = value;
             }
         }
 

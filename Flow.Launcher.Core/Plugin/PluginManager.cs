@@ -14,6 +14,7 @@ using ISavable = Flow.Launcher.Plugin.ISavable;
 using Flow.Launcher.Plugin.SharedCommands;
 using System.Text.Json;
 using Flow.Launcher.Core.Resource;
+using NuGet;
 
 namespace Flow.Launcher.Core.Plugin
 {
@@ -158,6 +159,7 @@ namespace Flow.Launcher.Core.Plugin
             _metadatas = PluginConfig.Parse(Directories);
             Settings = settings;
             Settings.UpdatePluginSettings(_metadatas);
+
             AllPlugins = PluginsLoader.Plugins(_metadatas, Settings);
         }
 

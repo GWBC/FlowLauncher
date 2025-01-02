@@ -31,6 +31,21 @@ namespace Flow.Launcher.Core.ExternalPlugins.Environments
 
         internal PluginsSettings PluginSettings;
 
+        internal bool AppIsExist(string cmd)
+        {
+            try
+            {
+                var startInfo = ShellCommand.SetProcessStartInfo(cmd, arguments: "", createNoWindow: true);
+                ShellCommand.Execute(startInfo);
+            }
+            catch (Exception _) 
+            { 
+                return false;
+            }
+
+            return true;
+        }
+
         internal AbstractPluginEnvironment(List<PluginMetadata> pluginMetadataList, PluginsSettings pluginSettings)
         {
             PluginMetadataList = pluginMetadataList;
@@ -39,10 +54,10 @@ namespace Flow.Launcher.Core.ExternalPlugins.Environments
 
         internal IEnumerable<PluginPair> Setup()
         {
-            if (!PluginMetadataList.Any(o => o.Language.Equals(Language, StringComparison.OrdinalIgnoreCase)))
+            if (!PluginMetadataList.Any(item => item.Language.Equals(Language, StringComparison.OrdinalIgnoreCase)))
                 return new List<PluginPair>();
 
-            if (!string.IsNullOrEmpty(PluginsSettingsFilePath) && FilesFolders.FileExists(PluginsSettingsFilePath))
+            if (!string.IsNullOrEmpty(PluginsSettingsFilePath) && AppIsExist(PluginsSettingsFilePath))
             {
                 // Ensure latest only if user is using Flow's environment setup.
                 if (PluginsSettingsFilePath.StartsWith(EnvPath, StringComparison.OrdinalIgnoreCase))
@@ -57,38 +72,36 @@ namespace Flow.Launcher.Core.ExternalPlugins.Environments
                 EnvName,
                 Environment.NewLine
             );
+
             if (MessageBoxEx.Show(noRuntimeMessage, string.Empty, MessageBoxButton.YesNo) == MessageBoxResult.No)
             {
                 var msg = string.Format(InternationalizationManager.Instance.GetTranslation("runtimePluginChooseRuntimeExecutable"), EnvName);
                 string selectedFile;
 
                 selectedFile = GetFileFromDialog(msg, FileDialogFilter);
+                PluginsSettingsFilePath = selectedFile;
 
-                if (!string.IsNullOrEmpty(selectedFile))
-                    PluginsSettingsFilePath = selectedFile;
+                if (!AppIsExist(selectedFile))
+                {
+                    return new List<PluginPair>();
+                }
 
-                // Nothing selected because user pressed cancel from the file dialog window
-                if (string.IsNullOrEmpty(selectedFile))
-                    InstallEnvironment();
-            }
-            else
-            {
-                InstallEnvironment();
+                return SetPathForPluginPairs(PluginsSettingsFilePath, Language);
             }
 
-            if (FilesFolders.FileExists(PluginsSettingsFilePath))
+            InstallEnvironment();
+
+            if (AppIsExist(PluginsSettingsFilePath))
             {
                 return SetPathForPluginPairs(PluginsSettingsFilePath, Language);
             }
-            else
-            {
-                MessageBoxEx.Show(string.Format(InternationalizationManager.Instance.GetTranslation("runtimePluginUnableToSetExecutablePath"), Language));
-                Log.Error("PluginsLoader",
-                    $"Not able to successfully set {EnvName} path, setting's plugin executable path variable is still an empty string.",
-                    $"{Language}Environment");
 
-                return new List<PluginPair>();
-            }
+            MessageBoxEx.Show(string.Format(InternationalizationManager.Instance.GetTranslation("runtimePluginUnableToSetExecutablePath"), Language));
+            Log.Error("PluginsLoader",
+                $"Not able to successfully set {EnvName} path, setting's plugin executable path variable is still an empty string.",
+                $"{Language}Environment");
+
+            return new List<PluginPair>();
         }
 
         internal abstract void InstallEnvironment();
@@ -123,7 +136,7 @@ namespace Flow.Launcher.Core.ExternalPlugins.Environments
         {
             var dlg = new OpenFileDialog
             {
-                InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles),
+                InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
                 Multiselect = false,
                 CheckFileExists = true,
                 CheckPathExists = true,
@@ -149,38 +162,38 @@ namespace Flow.Launcher.Core.ExternalPlugins.Environments
                 if (IsUsingPortablePath(settings.PluginSettings.PythonExecutablePath, DataLocation.PythonEnvironmentName)
                     && !settings.PluginSettings.PythonExecutablePath.StartsWith(DataLocation.PortableDataPath))
                 {
-                    settings.PluginSettings.PythonExecutablePathUI
+                    settings.PluginSettings.PythonExecutablePath
                         = GetUpdatedEnvironmentPath(settings.PluginSettings.PythonExecutablePath);
                 }
 
                 if (IsUsingPortablePath(settings.PluginSettings.NodeExecutablePath, DataLocation.NodeEnvironmentName)
                     && !settings.PluginSettings.NodeExecutablePath.StartsWith(DataLocation.PortableDataPath))
                 {
-                    settings.PluginSettings.NodeExecutablePathUI
+                    settings.PluginSettings.NodeExecutablePath
                         = GetUpdatedEnvironmentPath(settings.PluginSettings.NodeExecutablePath);
                 }
 
                 // When user has switched from roaming to portable
                 if (IsUsingRoamingPath(settings.PluginSettings.PythonExecutablePath))
                 {
-                    settings.PluginSettings.PythonExecutablePathUI
+                    settings.PluginSettings.PythonExecutablePath
                         = settings.PluginSettings.PythonExecutablePath.Replace(DataLocation.RoamingDataPath, DataLocation.PortableDataPath);
                 }
 
                 if (IsUsingRoamingPath(settings.PluginSettings.NodeExecutablePath))
                 {
-                    settings.PluginSettings.NodeExecutablePathUI
+                    settings.PluginSettings.NodeExecutablePath
                         = settings.PluginSettings.NodeExecutablePath.Replace(DataLocation.RoamingDataPath, DataLocation.PortableDataPath);
                 }
             }
             else
             {
                 if (IsUsingPortablePath(settings.PluginSettings.PythonExecutablePath, DataLocation.PythonEnvironmentName))
-                    settings.PluginSettings.PythonExecutablePathUI
+                    settings.PluginSettings.PythonExecutablePath
                         = GetUpdatedEnvironmentPath(settings.PluginSettings.PythonExecutablePath);
 
                 if (IsUsingPortablePath(settings.PluginSettings.NodeExecutablePath, DataLocation.NodeEnvironmentName))
-                    settings.PluginSettings.NodeExecutablePathUI
+                    settings.PluginSettings.NodeExecutablePath
                         = GetUpdatedEnvironmentPath(settings.PluginSettings.NodeExecutablePath);
             }
         }

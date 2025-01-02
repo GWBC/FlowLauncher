@@ -151,7 +151,7 @@ public partial class SettingsPaneGeneralViewModel : BaseModel
     {
         var dlg = new OpenFileDialog
         {
-            InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles),
+            InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
             Multiselect = false,
             CheckFileExists = true,
             CheckPathExists = true,
@@ -194,7 +194,7 @@ public partial class SettingsPaneGeneralViewModel : BaseModel
         );
 
         if (!string.IsNullOrEmpty(selectedFile))
-            Settings.PluginSettings.PythonExecutablePathUI = selectedFile;
+            Settings.PluginSettings.PythonExecutablePath = selectedFile;
     }
 
     [RelayCommand]
@@ -206,7 +206,7 @@ public partial class SettingsPaneGeneralViewModel : BaseModel
         );
 
         if (!string.IsNullOrEmpty(selectedFile))
-            Settings.PluginSettings.NodeExecutablePathUI = selectedFile;
+            Settings.PluginSettings.NodeExecutablePath = selectedFile;
     }
 
     [RelayCommand]

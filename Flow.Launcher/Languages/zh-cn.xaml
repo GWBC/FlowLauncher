@@ -5,7 +5,7 @@
     xmlns:system="clr-namespace:System;assembly=mscorlib">
     <!--  Startup  -->
     <system:String x:Key="runtimePluginInstalledChooseRuntimePrompt">
-        Flow 检测到您已安装 {0} 个插件，需要 {1} 才能运行。是否要下载 {1}？
+        Flow 检测到您已安装 {0} 插件，需要 {1} 才能运行。是否要下载 {1}？
         {2}{2}
         如果已安装，请单击“否”，系统将提示您选择包含 {1} 可执行文件的文件夹
     </system:String>

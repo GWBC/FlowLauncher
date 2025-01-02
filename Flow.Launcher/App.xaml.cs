@@ -74,18 +74,18 @@ namespace Flow.Launcher
                 InternationalizationManager.Instance.Settings = _settings;
                 InternationalizationManager.Instance.ChangeLanguage(_settings.Language);
 
-                PluginManager.LoadPlugins(_settings.PluginSettings);
-                _mainVM = new MainViewModel(_settings);
+                //必须将主界面提前，否则会被 MessageBoxEx.Show 接管，主程序直接退出
+                _mainVM = new MainViewModel(_settings);               
+                var window = new MainWindow(_settings, _mainVM);
 
                 API = new PublicAPIInstance(_settingsVM, _mainVM, _alphabet);
-
                 Http.API = API;
                 Http.Proxy = _settings.Proxy;
 
+                //必须放到主界面下面，否则内部弹出的 MessageBoxEx.Show 会导致程序退出
+                PluginManager.LoadPlugins(_settings.PluginSettings);
                 await PluginManager.InitializePluginsAsync(API);
                 await imageLoadertask;
-
-                var window = new MainWindow(_settings, _mainVM);
 
                 Log.Info($"|App.OnStartup|Dependencies Info:{ErrorReporting.DependenciesInfo()}");
 

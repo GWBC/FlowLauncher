@@ -51,8 +51,11 @@ namespace Flow.Launcher.Plugin.Program
 
         public void Save()
         {
-            _win32Storage.SaveAsync(_win32s);
-            _uwpStorage.SaveAsync(_uwps);
+            if(_win32Storage != null)
+                _win32Storage.SaveAsync(_win32s);
+
+            if(_uwpStorage != null)
+                _uwpStorage.SaveAsync(_uwps);
         }
 
         public async Task<List<Result>> QueryAsync(Query query, CancellationToken token)
