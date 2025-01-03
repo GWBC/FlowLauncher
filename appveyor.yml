@@ -45,13 +45,18 @@ artifacts:
   name: Squirrel RELEASES
 
 deploy:
+  - provider: NuGet
+    artifact: Plugin nupkg
+    api_key:
+      secure: mCSGSjk3kAIcpCWksdOkJJIIRGrez4anHoBzQQ0imfhfV/RZrrTApVTY/RF9MMtw
+    on:
+      APPVEYOR_REPO_TAG: true
+
   - provider: GitHub
     release: v$(flowVersion)
     auth_token:
       secure: mCSGSjk3kAIcpCWksdOkJJIIRGrez4anHoBzQQ0imfhfV/RZrrTApVTY/RF9MMtw
     artifact: Squirrel Installer, Portable Version, Squirrel nupkg, Squirrel RELEASES
     force_update: true
-    draft: false
-    prerelease: false
     on:
       APPVEYOR_REPO_TAG: true
