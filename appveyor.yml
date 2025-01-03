@@ -1,6 +1,13 @@
 version: '1.0.0.{build}'
 
 init:
+- ps: |
+      $version = new-object System.Version $env:APPVEYOR_BUILD_VERSION
+      $env:flowVersion = "{0}.{1}.{2}" -f $version.Major, $version.Minor, $version.Build
+      if ($env:APPVEYOR_REPO_BRANCH -eq "master")
+      {
+        $env:prereleaseTag = "{0}.{1}.{2}.{3}" -f $version.Major, $version.Minor, $version.Build, $version.Revision
+      }
 - sc config WSearch start= auto
 - net start WSearch
 
@@ -10,9 +17,9 @@ cache:
 assembly_info:
   patch: true
   file: SolutionAssemblyInfo.cs
-  assembly_version: $(APPVEYOR_BUILD_VERSION)
-  assembly_file_version: $(APPVEYOR_BUILD_VERSION)
-  assembly_informational_version: $(APPVEYOR_BUILD_VERSION)
+  assembly_version: $(flowVersion)
+  assembly_file_version: $(flowVersion)
+  assembly_informational_version: $(flowVersion)
 
 image: Visual Studio 2022
 platform: Any CPU
@@ -40,12 +47,11 @@ artifacts:
 
 deploy:
   - provider: GitHub  
-    tag: v$(APPVEYOR_BUILD_VERSION)
-    release: v$(APPVEYOR_BUILD_VERSION)
-    description: Auto Build v$(APPVEYOR_BUILD_VERSION)
+    tag: v$(flowVersion)
+    release: v$(flowVersion)
+    description: Auto Build v$(flowVersion)
     artifact: Squirrel Installer, Portable Version
     auth_token:
         secure: 4xrB/JSQKv8BSxZCKRVOZ/Pt4IfVsloqNNxkauo9RyOB7rpSmQrD9ynCekYM1d7i
     force_update: true
-    on:
-        APPVEYOR_REPO_TAG: true
+
