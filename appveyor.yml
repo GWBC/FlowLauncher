@@ -1,14 +1,7 @@
 version: '1.0.0.{build}'
 
 init:
-- ps: |
-      $version = new-object System.Version $env:APPVEYOR_BUILD_VERSION
-      $env:flowVersion = "{0}.{1}.{2}" -f $version.Major, $version.Minor, $version.Build
-      if ($env:APPVEYOR_REPO_BRANCH -eq "master")
-      {
-        $env:prereleaseTag = "{0}.{1}.{2}.{3}" -f $version.Major, $version.Minor, $version.Build, $version.Revision
-      }
-- sc config WSearch start= auto # Starts Windows Search service- Needed for running ExplorerTest
+- sc config WSearch start= auto
 - net start WSearch
 
 cache:
@@ -31,6 +24,7 @@ build:
   verbosity: minimal
 after_build:
   - ps: .\Scripts\post_build.ps1
+test: false
 
 artifacts:
 - path: 'Output\Release\Flow.Launcher.Plugin.*.nupkg'
@@ -45,18 +39,10 @@ artifacts:
   name: Squirrel RELEASES
 
 deploy:
-  - provider: NuGet
-    artifact: Plugin nupkg
-    api_key:
-      secure: mCSGSjk3kAIcpCWksdOkJJIIRGrez4anHoBzQQ0imfhfV/RZrrTApVTY/RF9MMtw
-    on:
-      APPVEYOR_REPO_TAG: true
-
-  - provider: GitHub
-    release: v$(flowVersion)
+  - provider: GitHub  
+    tag: v$(APPVEYOR_BUILD_VERSION)
+    release: v$(APPVEYOR_BUILD_VERSION)
+    description: 自动构建-v$(APPVEYOR_BUILD_VERSION)
     auth_token:
-      secure: mCSGSjk3kAIcpCWksdOkJJIIRGrez4anHoBzQQ0imfhfV/RZrrTApVTY/RF9MMtw
-    artifact: Squirrel Installer, Portable Version, Squirrel nupkg, Squirrel RELEASES
+        secure: 4xrB/JSQKv8BSxZCKRVOZ/Pt4IfVsloqNNxkauo9RyOB7rpSmQrD9ynCekYM1d7i
     force_update: true
-    on:
-      APPVEYOR_REPO_TAG: true
