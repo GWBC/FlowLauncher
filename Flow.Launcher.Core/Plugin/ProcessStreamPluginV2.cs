@@ -32,7 +32,7 @@ namespace Flow.Launcher.Core.Plugin
 
         protected abstract ProcessStartInfo StartInfo { get; set; }
 
-        protected Process ClientProcess { get; set; } = null!;
+        protected Process? ClientProcess { get; set; } = null!;
 
         public override async Task InitAsync(PluginInitContext context)
         {
@@ -74,18 +74,24 @@ namespace Flow.Launcher.Core.Plugin
             ArgumentNullException.ThrowIfNull(ClientProcess);
             SetupPipe(ClientProcess);
             await base.ReloadDataAsync();
-            oldProcess.Kill(true);
-            await oldProcess.WaitForExitAsync();
-            oldProcess.Dispose();
+            if (oldProcess != null)
+            {
+                oldProcess.Kill(true);
+                await oldProcess.WaitForExitAsync();
+                oldProcess.Dispose();
+            }
         }
 
 
         public override async ValueTask DisposeAsync()
         {
             await base.DisposeAsync();
-            ClientProcess.Kill(true);
-            await ClientProcess.WaitForExitAsync();
-            ClientProcess.Dispose();
+            if(ClientProcess != null)
+            {
+                ClientProcess.Kill(true);
+                await ClientProcess.WaitForExitAsync();
+                ClientProcess.Dispose();
+            }          
         }
     }
 }

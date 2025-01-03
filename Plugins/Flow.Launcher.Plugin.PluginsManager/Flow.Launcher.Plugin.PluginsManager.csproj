@@ -37,4 +37,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="DeltaCompressionDotNet" Version="1.1.0" />
+    <PackageReference Include="squirrel.windows" Version="1.5.1" />
+  </ItemGroup>
 </Project>

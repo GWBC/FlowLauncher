@@ -32,8 +32,6 @@ namespace Flow.Launcher.Core.Plugin
     /// </summary>
     internal abstract class JsonRPCPlugin : JsonRPCPluginBase
     {
-        public const string JsonRPC = "JsonRPC";
-
         protected abstract Task<Stream> RequestAsync(JsonRPCRequestModel rpcRequest, CancellationToken token = default);
         protected abstract string Request(JsonRPCRequestModel rpcRequest, CancellationToken token = default);
 

@@ -145,7 +145,7 @@ namespace Flow.Launcher.Core.Plugin
             {
                 await RPC.InvokeAsync("close");
             }
-            catch (RemoteMethodNotFoundException e)
+            catch (RemoteMethodNotFoundException)
             {
             }
             finally

@@ -17,13 +17,13 @@ public static class EverythingDownloadHelper
             return installedLocation;
 
         installedLocation = GetInstalledPath();
-
-        if (string.IsNullOrEmpty(installedLocation))
+              
+        if (!File.Exists(installedLocation))
         {
             if (api.ShowMsgBox(
-                        string.Format(api.GetTranslation("flowlauncher_plugin_everything_installing_select"), Environment.NewLine),
-                        api.GetTranslation("flowlauncher_plugin_everything_installing_title"),
-                        MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+                string.Format(api.GetTranslation("flowlauncher_plugin_everything_installing_select"), Environment.NewLine),
+                api.GetTranslation("flowlauncher_plugin_everything_installing_title"),
+                MessageBoxButton.YesNo) == MessageBoxResult.Yes)
             {
                 var dlg = new System.Windows.Forms.OpenFileDialog
                 {
@@ -31,12 +31,18 @@ public static class EverythingDownloadHelper
                 };
 
                 var result = dlg.ShowDialog();
-                if (result == System.Windows.Forms.DialogResult.OK && !string.IsNullOrEmpty(dlg.FileName))
+                if (result == System.Windows.Forms.DialogResult.OK)
+                {
                     installedLocation = dlg.FileName;
+                }
+                else
+                {
+                    return "";
+                }
             }
         }
 
-        if (!string.IsNullOrEmpty(installedLocation))
+        if (File.Exists(installedLocation))
         {
             return installedLocation;
         }

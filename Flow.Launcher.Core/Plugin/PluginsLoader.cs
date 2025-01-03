@@ -75,7 +75,7 @@ namespace Flow.Launcher.Core.Plugin
                             plugin = Activator.CreateInstance(type) as IAsyncPlugin;
                         }
 #if DEBUG
-                        catch (Exception e)
+                        catch (Exception)
                         {
                             throw;
                         }

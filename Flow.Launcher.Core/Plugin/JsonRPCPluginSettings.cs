@@ -1,4 +1,5 @@
-﻿using System.Collections.Concurrent;
+﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Windows;
@@ -19,16 +20,17 @@ namespace Flow.Launcher.Core.Plugin
 {
     public class JsonRPCPluginSettings
     {
-        public required JsonRpcConfigurationModel? Configuration { get; init; }
+        #nullable enable
+        public required JsonRpcConfigurationModel Configuration { get; init; }
 
         public required string SettingPath { get; init; }
         public Dictionary<string, FrameworkElement> SettingControls { get; } = new();
 
         public IReadOnlyDictionary<string, object> Inner => Settings;
-        protected ConcurrentDictionary<string, object> Settings { get; set; }
+        protected ConcurrentDictionary<string, object> Settings = new ConcurrentDictionary<string, object>();
         public required IPublicAPI API { get; init; }
 
-        private JsonStorage<ConcurrentDictionary<string, object>> _storage;
+        private JsonStorage<ConcurrentDictionary<string, object>>? _storage;
 
         // maybe move to resource?
         private static readonly Thickness settingControlMargin = new(0, 9, 18, 9);
@@ -102,12 +104,18 @@ namespace Flow.Launcher.Core.Plugin
 
         public async Task SaveAsync()
         {
-            await _storage.SaveAsync();
+            if(_storage != null)
+            {
+                await _storage.SaveAsync();
+            }
         }
 
         public void Save()
         {
-            _storage.Save();
+            if (_storage != null)
+            {
+                _storage!.Save();
+            }
         }
 
         public Control CreateSettingPanel()
@@ -184,7 +192,7 @@ namespace Flow.Launcher.Core.Plugin
                     {
                         contentControl = new TextBlock
                         {
-                            Text = attribute.Description.Replace("\\r\\n", "\r\n"),
+                            Text = attribute.Description ?? "".Replace("\\r\\n", "\r\n"),
                             Margin = settingTextBlockMargin,
                             Padding = new Thickness(0, 0, 0, 0),
                             HorizontalAlignment = System.Windows.HorizontalAlignment.Left,
@@ -216,7 +224,7 @@ namespace Flow.Launcher.Core.Plugin
 
                         textBox.TextChanged += (_, _) =>
                         {
-                            Settings[attribute.Name] = textBox.Text;
+                            Settings[attribute.Name] = textBox.Text ?? "";
                         };
 
                         textBox.LostFocus += (_, _) =>
@@ -249,7 +257,7 @@ namespace Flow.Launcher.Core.Plugin
 
                         textBox.TextChanged += (_, _) =>
                         {
-                            Settings[attribute.Name] = textBox.Text;
+                            Settings[attribute.Name] = textBox.Text ?? "";
                         };
 
                         textBox.LostFocus += (_, _) =>
@@ -275,7 +283,9 @@ namespace Flow.Launcher.Core.Plugin
                             {
                                 FolderBrowserDialog folderDialog => folderDialog.SelectedPath,
                                 OpenFileDialog fileDialog => fileDialog.FileName,
+                                _ => throw new InvalidOperationException("Unsupported dialog type")
                             };
+
                             textBox.Text = path;                            
                             Settings[attribute.Name] = path;
                             Save();
@@ -410,7 +420,7 @@ namespace Flow.Launcher.Core.Plugin
 
                         checkBox.Click += (sender, _) =>
                         {
-                            Settings[attribute.Name] = ((CheckBox)sender).IsChecked;
+                            Settings[attribute.Name] = ((CheckBox)sender).IsChecked??false;
                             Save();
                         };
 

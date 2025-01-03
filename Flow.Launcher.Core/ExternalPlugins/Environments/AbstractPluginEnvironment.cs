@@ -8,6 +8,7 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Forms;
 using Flow.Launcher.Core.Resource;
+using System.Threading.Tasks;
 
 namespace Flow.Launcher.Core.ExternalPlugins.Environments
 {
@@ -38,7 +39,7 @@ namespace Flow.Launcher.Core.ExternalPlugins.Environments
                 var startInfo = ShellCommand.SetProcessStartInfo(cmd, arguments: "", createNoWindow: true);
                 ShellCommand.Execute(startInfo);
             }
-            catch (Exception _) 
+            catch (Exception) 
             { 
                 return false;
             }

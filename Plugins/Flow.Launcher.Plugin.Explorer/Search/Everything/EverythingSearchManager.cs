@@ -6,6 +6,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Flow.Launcher.Plugin.Explorer.Exceptions;
 using Flow.Launcher.Plugin.Explorer.Search.IProvider;
+using NuGet;
 
 namespace Flow.Launcher.Plugin.Explorer.Search.Everything
 {
@@ -44,10 +45,8 @@ namespace Flow.Launcher.Plugin.Explorer.Search.Everything
         {
             var installedPath = await EverythingDownloadHelper.PromptDownloadIfNotInstallAsync(Settings.EverythingInstalledPath, Main.Context.API);
 
-            if (installedPath == null)
+            if (installedPath.IsEmpty())
             {
-                Main.Context.API.ShowMsgError("Unable to find Everything.exe");
-
                 return false;
             }
 

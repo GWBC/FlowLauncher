@@ -1,0 +1,49 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Library</OutputType>
+    <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <GenerateDocumentationFile>False</GenerateDocumentationFile>
+    <NoWarn>$(NoWarn);1591</NoWarn>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <PackageVersion>1.7.0</PackageVersion>
+    <AssemblyVersion></AssemblyVersion>
+    <InformationalVersion>1.7.0</InformationalVersion>
+    <PackageId>$(AssemblyName)</PackageId>
+    <Authors>$(Authors)</Authors>
+    <CopyRight></CopyRight>
+    <RepositoryUrl></RepositoryUrl>
+    <PackageProjectUrl></PackageProjectUrl>
+    <PackageDescription>Droplex is a library that enables the application to manage non-interactive installation of dependent tools, programs or services from within the application itself</PackageDescription>
+    <PackageTags>droplex; silent-install; installation; non-interactive; apps</PackageTags>
+    <GeneratePackageOnBuild>False</GeneratePackageOnBuild>
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+    <TargetFramework>net7.0-windows</TargetFramework>
+    <Company>$(Authors)</Company>
+    <AssemblyName>Droplex</AssemblyName>
+    <RootNamespace>Droplex</RootNamespace>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <OutputPath>..\Output\Debug</OutputPath>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <OutputPath>..\Output\Release</OutputPath>
+  </PropertyGroup>
+  
+  <ItemGroup>
+    <Content Include="Droplex.Configuration.yml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <PackageCopyToOutput>true</PackageCopyToOutput>
+    </Content>
+  </ItemGroup>
+  
+  <ItemGroup>
+    <PackageReference Include="YamlDotNet" Version="9.1.0" />
+  </ItemGroup>
+
+</Project>

@@ -545,7 +545,7 @@ namespace Flow.Launcher.Plugin.PluginsManager
                    Context.API.GetAllPlugins().Any(x => x.Metadata.Website.StartsWith(constructedUrlPart));
         }
 
-        internal async ValueTask<List<Result>> RequestInstallOrUpdate(string search, CancellationToken token,
+        internal async ValueTask<List<Result>> RequestInstallOrUpdateAsync(string search, CancellationToken token,
             bool usePrimaryUrlOnly = false)
         {
             await PluginsManifest.UpdateManifestAsync(token, usePrimaryUrlOnly);

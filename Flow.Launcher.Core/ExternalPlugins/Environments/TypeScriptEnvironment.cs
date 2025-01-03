@@ -5,6 +5,7 @@ using Flow.Launcher.Plugin.SharedCommands;
 using Flow.Launcher.Plugin;
 using System.IO;
 using Flow.Launcher.Core.Plugin;
+using System.Threading.Tasks;
 
 namespace Flow.Launcher.Core.ExternalPlugins.Environments
 {
