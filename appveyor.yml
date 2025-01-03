@@ -48,9 +48,10 @@ deploy:
   - provider: GitHub
     release: v$(flowVersion)
     auth_token:
-      secure: 47+i+INL2f4NIT5RKsM5R2ujthA4D0RpHGUUClPvFTkNd+bajLikjGia5LeYfe3t
+      secure: mCSGSjk3kAIcpCWksdOkJJIIRGrez4anHoBzQQ0imfhfV/RZrrTApVTY/RF9MMtw
     artifact: Squirrel Installer, Portable Version, Squirrel nupkg, Squirrel RELEASES
     force_update: true
+    draft: false
+    prerelease: false
     on:
-      branch: main
       APPVEYOR_REPO_TAG: true
