@@ -16,7 +16,7 @@ namespace Flow.Launcher.Core.Plugin
 {
     public static class PluginsLoader
     {
-        public static List<PluginPair> Plugins(List<PluginMetadata> metadatas, PluginsSettings settings)
+        public static List<PluginPair> Plugins(List<PluginMetadata> metadatas, PluginsSettings settings, IPublicAPI api)
         {
             var dotnetPlugins = DotNetPlugins(metadatas);
 
@@ -26,12 +26,12 @@ namespace Flow.Launcher.Core.Plugin
             var jsEnv = new JavaScriptEnvironment(metadatas, settings);
             var tsV2Env = new TypeScriptV2Environment(metadatas, settings);
             var jsV2Env = new JavaScriptV2Environment(metadatas, settings);
-            var pythonPlugins = pythonEnv.Setup();
-            var pythonV2Plugins = pythonV2Env.Setup();
-            var tsPlugins = tsEnv.Setup();
-            var jsPlugins = jsEnv.Setup();
-            var tsV2Plugins = tsV2Env.Setup();
-            var jsV2Plugins = jsV2Env.Setup();
+            var pythonPlugins = pythonEnv.Setup(api);
+            var pythonV2Plugins = pythonV2Env.Setup(api);
+            var tsPlugins = tsEnv.Setup(api);
+            var jsPlugins = jsEnv.Setup(api);
+            var tsV2Plugins = tsV2Env.Setup(api);
+            var jsV2Plugins = jsV2Env.Setup(api);
 
             var executablePlugins = ExecutablePlugins(metadatas);
             var executableV2Plugins = ExecutableV2Plugins(metadatas);

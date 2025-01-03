@@ -15,6 +15,7 @@ using Flow.Launcher.Plugin.SharedCommands;
 using System.Text.Json;
 using Flow.Launcher.Core.Resource;
 using NuGet;
+using Droplex;
 
 namespace Flow.Launcher.Core.Plugin
 {
@@ -154,22 +155,22 @@ namespace Flow.Launcher.Core.Plugin
         /// todo happlebao The API should be removed
         /// </summary>
         /// <param name="settings"></param>
-        public static void LoadPlugins(PluginsSettings settings)
+        public static void LoadPlugins(PluginsSettings settings, IPublicAPI api)
         {
+            API = api;
             _metadatas = PluginConfig.Parse(Directories);
             Settings = settings;
             Settings.UpdatePluginSettings(_metadatas);
 
-            AllPlugins = PluginsLoader.Plugins(_metadatas, Settings);
+            AllPlugins = PluginsLoader.Plugins(_metadatas, Settings, api);
         }
 
         /// <summary>
         /// Call initialize for all plugins
         /// </summary>
         /// <returns>return the list of failed to init plugins or null for none</returns>
-        public static async Task InitializePluginsAsync(IPublicAPI api)
+        public static async Task InitializePluginsAsync()
         {
-            API = api;
             var failedPlugins = new ConcurrentQueue<PluginPair>();
 
             var InitTasks = AllPlugins.Select(pair => Task.Run(async delegate

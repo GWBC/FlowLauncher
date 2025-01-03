@@ -50,7 +50,7 @@ public static class EverythingDownloadHelper
         api.ShowMsg(api.GetTranslation("flowlauncher_plugin_everything_installing_title"),
             api.GetTranslation("flowlauncher_plugin_everything_installing_subtitle"), "", useMainWindowAsOwner: false);
 
-        await DroplexPackage.Drop(App.Everything1_4_1_1009).ConfigureAwait(false);
+        await DroplexPackage.Drop(App.Everything).ConfigureAwait(false);
 
         api.ShowMsg(api.GetTranslation("flowlauncher_plugin_everything_installing_title"),
             api.GetTranslation("flowlauncher_plugin_everything_installationsuccess_subtitle"), "", useMainWindowAsOwner: false);

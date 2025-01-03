@@ -83,8 +83,8 @@ namespace Flow.Launcher
                 Http.Proxy = _settings.Proxy;
 
                 //必须放到主界面下面，否则内部弹出的 MessageBoxEx.Show 会导致程序退出
-                PluginManager.LoadPlugins(_settings.PluginSettings);
-                await PluginManager.InitializePluginsAsync(API);
+                PluginManager.LoadPlugins(_settings.PluginSettings, API);
+                await PluginManager.InitializePluginsAsync();
                 await imageLoadertask;
 
                 Log.Info($"|App.OnStartup|Dependencies Info:{ErrorReporting.DependenciesInfo()}");

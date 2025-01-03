@@ -38,7 +38,9 @@ namespace Flow.Launcher.Infrastructure.UserSettings
 
         public const string PythonEnvironmentName = "Python";
         public const string NodeEnvironmentName = "Node.js";
-        public const string PluginEnvironments = "Environments";
-        public static readonly string PluginEnvironmentsPath = Path.Combine(DataDirectory(), PluginEnvironments);
+        public const string PluginEnvironments = "FlowEnvironments";        
+        public static readonly string PluginEnvironmentsPath = 
+            Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
+            PluginEnvironments);
     }
 }

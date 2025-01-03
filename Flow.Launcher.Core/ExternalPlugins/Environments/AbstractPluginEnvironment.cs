@@ -8,7 +8,10 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Forms;
 using Flow.Launcher.Core.Resource;
-using System.Threading.Tasks;
+using NuGet;
+
+using UserSettings = Flow.Launcher.Infrastructure.UserSettings.Settings;
+using Droplex;
 
 namespace Flow.Launcher.Core.ExternalPlugins.Environments
 {
@@ -32,33 +35,23 @@ namespace Flow.Launcher.Core.ExternalPlugins.Environments
 
         internal PluginsSettings PluginSettings;
 
-        internal bool AppIsExist(string cmd)
-        {
-            try
-            {
-                var startInfo = ShellCommand.SetProcessStartInfo(cmd, arguments: "", createNoWindow: true);
-                ShellCommand.Execute(startInfo);
-            }
-            catch (Exception) 
-            { 
-                return false;
-            }
-
-            return true;
-        }
-
         internal AbstractPluginEnvironment(List<PluginMetadata> pluginMetadataList, PluginsSettings pluginSettings)
         {
             PluginMetadataList = pluginMetadataList;
             PluginSettings = pluginSettings;
         }
 
-        internal IEnumerable<PluginPair> Setup()
+        internal IEnumerable<PluginPair> Setup(IPublicAPI api)
         {
             if (!PluginMetadataList.Any(item => item.Language.Equals(Language, StringComparison.OrdinalIgnoreCase)))
                 return new List<PluginPair>();
 
-            if (!string.IsNullOrEmpty(PluginsSettingsFilePath) && AppIsExist(PluginsSettingsFilePath))
+            if (PluginsSettingsFilePath.IsEmpty() && ExecutablePath.FileExists())
+            {
+                PluginsSettingsFilePath = ExecutablePath;
+            }
+
+            if (PluginsSettingsFilePath.FileExists())
             {
                 // Ensure latest only if user is using Flow's environment setup.
                 if (PluginsSettingsFilePath.StartsWith(EnvPath, StringComparison.OrdinalIgnoreCase))
@@ -68,7 +61,7 @@ namespace Flow.Launcher.Core.ExternalPlugins.Environments
             }
 
             var noRuntimeMessage = string.Format(
-                InternationalizationManager.Instance.GetTranslation("runtimePluginInstalledChooseRuntimePrompt"),
+                api.GetTranslation("runtimePluginInstalledChooseRuntimePrompt"),
                 Language,
                 EnvName,
                 Environment.NewLine
@@ -76,13 +69,13 @@ namespace Flow.Launcher.Core.ExternalPlugins.Environments
 
             if (MessageBoxEx.Show(noRuntimeMessage, string.Empty, MessageBoxButton.YesNo) == MessageBoxResult.No)
             {
-                var msg = string.Format(InternationalizationManager.Instance.GetTranslation("runtimePluginChooseRuntimeExecutable"), EnvName);
+                var msg = string.Format(api.GetTranslation("runtimePluginChooseRuntimeExecutable"), EnvName);
                 string selectedFile;
 
                 selectedFile = GetFileFromDialog(msg, FileDialogFilter);
                 PluginsSettingsFilePath = selectedFile;
 
-                if (!AppIsExist(selectedFile))
+                if (!selectedFile.FileExists())
                 {
                     return new List<PluginPair>();
                 }
@@ -90,14 +83,39 @@ namespace Flow.Launcher.Core.ExternalPlugins.Environments
                 return SetPathForPluginPairs(PluginsSettingsFilePath, Language);
             }
 
-            InstallEnvironment();
+            api.ShowMsg(string.Format(
+                api.GetTranslation("flowlauncher_plugin_env_install_title"),
+                Language
+            ),
+            string.Format(
+                api.GetTranslation("flowlauncher_plugin_env_install_subtitle"),
+                Language
+            ), "", useMainWindowAsOwner: false);
 
-            if (AppIsExist(PluginsSettingsFilePath))
+            try
             {
+                InstallEnvironment();
+            }
+            catch
+            {
+
+            }
+
+            if (PluginsSettingsFilePath.FileExists())
+            {
+                api.ShowMsg(string.Format(
+                    api.GetTranslation("flowlauncher_plugin_env_install_title"),
+                    Language
+                ),
+                 string.Format(
+                    api.GetTranslation("flowlauncher_plugin_env_install_fin_title"),
+                    Language
+                ), "", useMainWindowAsOwner: false);
+
                 return SetPathForPluginPairs(PluginsSettingsFilePath, Language);
             }
 
-            MessageBoxEx.Show(string.Format(InternationalizationManager.Instance.GetTranslation("runtimePluginUnableToSetExecutablePath"), Language));
+            MessageBoxEx.Show(string.Format(api.GetTranslation("runtimePluginUnableToSetExecutablePath"), Language));
             Log.Error("PluginsLoader",
                 $"Not able to successfully set {EnvName} path, setting's plugin executable path variable is still an empty string.",
                 $"{Language}Environment");
@@ -115,7 +133,6 @@ namespace Flow.Launcher.Core.ExternalPlugins.Environments
             FilesFolders.RemoveFolderIfExists(installedDirPath, MessageBoxEx.Show);
 
             InstallEnvironment();
-
         }
 
         internal abstract PluginPair CreatePluginPair(string filePath, PluginMetadata metadata);
@@ -155,7 +172,7 @@ namespace Flow.Launcher.Core.ExternalPlugins.Environments
         /// need to update each plugin's executable path so user will not be prompted again to reinstall the environments.
         /// </summary>
         /// <param name="settings"></param>
-        public static void PreStartPluginExecutablePathUpdate(Settings settings)
+        public static void PreStartPluginExecutablePathUpdate(UserSettings settings)
         {
             if (DataLocation.PortableDataLocationInUse())
             {

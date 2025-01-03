@@ -455,4 +455,8 @@
     <system:String x:Key="FileSize">File Size</system:String>
     <system:String x:Key="Created">Created</system:String>
     <system:String x:Key="LastModified">Last Modified</system:String>
+
+    <system:String x:Key="flowlauncher_plugin_env_install_title">{0} Service Installation</system:String>
+    <system:String x:Key="flowlauncher_plugin_env_install_subtitle">Installing {0} service. Please wait...</system:String>
+    <system:String x:Key="flowlauncher_plugin_env_install_fin_title">{0} Service Successfully Installed</system:String>
 </ResourceDictionary>

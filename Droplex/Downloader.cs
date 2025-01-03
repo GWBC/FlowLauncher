@@ -57,19 +57,20 @@ namespace Droplex
 
         public static async Task<bool> CheckGoogleConnection()
         {
-            try
+            using (HttpClient cli = new HttpClient())
             {
-                var cts = new CancellationTokenSource();
-                cts.CancelAfter(2000);
+                cli.Timeout = TimeSpan.FromSeconds(5);
 
-                // this needs to finish first as it determines the url
-                await client.GetAsync("http://clients3.google.com/generate_204", cts.Token);
+                try
+                {
+                    await cli.GetAsync("https://www.google.com");
+                    return true;
+                }
+                catch 
+                {
+                    return false;
+                }
 
-                return true;
-            }
-            catch
-            {
-                return false;
             }
         }
     }

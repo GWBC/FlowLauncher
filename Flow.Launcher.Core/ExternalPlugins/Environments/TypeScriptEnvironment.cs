@@ -5,7 +5,7 @@ using Flow.Launcher.Plugin.SharedCommands;
 using Flow.Launcher.Plugin;
 using System.IO;
 using Flow.Launcher.Core.Plugin;
-using System.Threading.Tasks;
+using Microsoft.VisualStudio.Threading;
 
 namespace Flow.Launcher.Core.ExternalPlugins.Environments
 {
@@ -17,8 +17,9 @@ namespace Flow.Launcher.Core.ExternalPlugins.Environments
 
         internal override string EnvPath => Path.Combine(DataLocation.PluginEnvironmentsPath, EnvName);
 
-        internal override string InstallPath => Path.Combine(EnvPath, "Node-v16.18.0");
-        internal override string ExecutablePath => Path.Combine(InstallPath, "node-v16.18.0-win-x64\\node.exe");
+        internal override string InstallPath => EnvPath;
+
+        internal override string ExecutablePath => Path.Combine(InstallPath, "node-v22.12.0-win-x64\\node.exe");
 
         internal override string PluginsSettingsFilePath { get => PluginSettings.NodeExecutablePath; set => PluginSettings.NodeExecutablePath = value; }
 
@@ -28,7 +29,10 @@ namespace Flow.Launcher.Core.ExternalPlugins.Environments
         {
             FilesFolders.RemoveFolderIfExists(InstallPath, MessageBoxEx.Show);
 
-            DroplexPackage.Drop(App.nodejs_16_18_0, InstallPath).Wait();
+            var joinable = new JoinableTaskFactory(new JoinableTaskContext());
+            joinable.Run(async () => {
+                await DroplexPackage.Drop(App.Nodejs, InstallPath);
+            });
 
             PluginsSettingsFilePath = ExecutablePath;
         }

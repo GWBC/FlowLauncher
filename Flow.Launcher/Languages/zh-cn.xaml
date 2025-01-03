@@ -6,8 +6,7 @@
     <!--  Startup  -->
     <system:String x:Key="runtimePluginInstalledChooseRuntimePrompt">
         Flow 检测到您已安装 {0} 插件，需要 {1} 才能运行。是否要下载 {1}？
-        {2}{2}
-        如果已安装，请单击“否”，系统将提示您选择包含 {1} 可执行文件的文件夹
+        {2}{2}如果已安装，请单击“否”，系统将提示您选择包含 {1} 可执行文件的文件夹
     </system:String>
     <system:String x:Key="runtimePluginChooseRuntimeExecutable">请选择 {0} 可执行文件</system:String>
     <system:String x:Key="runtimePluginUnableToSetExecutablePath">无法设置 {0} 可执行路径，请尝试从 Flow 的设置中设置（向下滚动到底部）。</system:String>
@@ -458,4 +457,8 @@
     <system:String x:Key="FileSize">文件大小</system:String>
     <system:String x:Key="Created">创建于</system:String>
     <system:String x:Key="LastModified">最后修改于</system:String>
+
+    <system:String x:Key="flowlauncher_plugin_env_install_title">{0} 服务安装</system:String>
+    <system:String x:Key="flowlauncher_plugin_env_install_subtitle">正在安装 {0} 服务。请稍后...</system:String>
+    <system:String x:Key="flowlauncher_plugin_env_install_fin_title">成功安装了 {0} 服务</system:String>
 </ResourceDictionary>
