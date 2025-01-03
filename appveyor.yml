@@ -52,5 +52,5 @@ deploy:
     artifact: Squirrel Installer, Portable Version, Squirrel nupkg, Squirrel RELEASES
     force_update: true
     on:
-      branch: master
+      branch: main
       APPVEYOR_REPO_TAG: true
