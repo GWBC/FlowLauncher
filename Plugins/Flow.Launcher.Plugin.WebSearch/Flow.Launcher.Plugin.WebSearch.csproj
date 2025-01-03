@@ -52,7 +52,7 @@
 
   <ItemGroup>
     <PackageReference Include="DeltaCompressionDotNet" Version="1.1.0" />
-    <PackageReference Include="squirrel.windows" Version="1.5.1" />
+    <PackageReference Include="squirrel.windows" Version="1.5.2" />
   </ItemGroup>
 
   <ItemGroup>

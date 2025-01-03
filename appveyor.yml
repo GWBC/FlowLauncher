@@ -14,7 +14,6 @@ init:
 cache:
   - '%USERPROFILE%\.nuget\packages -> **.sln, **.csproj'
 
-
 assembly_info:
   patch: true
   file: SolutionAssemblyInfo.cs
@@ -30,9 +29,7 @@ before_build:
 build:
   project: Flow.Launcher.sln
   verbosity: minimal
-#test_script:
-#  - dotnet test --no-build -c Release
-after_test:
+after_build:
   - ps: .\Scripts\post_build.ps1
 
 artifacts:
@@ -48,16 +45,6 @@ artifacts:
   name: Squirrel RELEASES
 
 deploy:
-  - provider: GitHub
-    release: v$(flowVersion)
-    auth_token:
-      secure: 47+i+INL2f4NIT5RKsM5R2ujthA4D0RpHGUUClPvFTkNd+bajLikjGia5LeYfe3t
-    artifact: Squirrel Installer, Portable Version, Squirrel nupkg, Squirrel RELEASES
-    draft: true
-    force_update: true
-    on:
-      branch: master
-
   - provider: GitHub
     release: v$(flowVersion)
     auth_token:
