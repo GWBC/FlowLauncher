@@ -10,9 +10,9 @@ cache:
 assembly_info:
   patch: true
   file: SolutionAssemblyInfo.cs
-  assembly_version: $(flowVersion)
-  assembly_file_version: $(flowVersion)
-  assembly_informational_version: $(flowVersion)
+  assembly_version: $(APPVEYOR_BUILD_VERSION)
+  assembly_file_version: $(APPVEYOR_BUILD_VERSION)
+  assembly_informational_version: $(APPVEYOR_BUILD_VERSION)
 
 image: Visual Studio 2022
 platform: Any CPU
