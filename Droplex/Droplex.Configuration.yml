@@ -1,0 +1,36 @@
+- name: Python
+  version: latest  
+  id: 1  
+  url: https://www.python.org/ftp/python/3.12.8/python-3.12.8-amd64.exe
+  mirror: http://npmmirror.com/mirrors/python/3.12.8/python-3.12.8-amd64.exe
+  args: -passive
+
+- name: Python-Embeddable
+  version: latest
+  id: 2
+  url: https://www.python.org/ftp/python/3.12.8/python-3.12.8-embed-amd64.zip
+  mirror: http://npmmirror.com/mirrors/python/3.12.8/python-3.12.8-embed-amd64.zip
+
+- name: Node.js
+  version: 22.12.0
+  id: 3
+  url: https://nodejs.org/dist/v22.12.0/node-v22.12.0-win-x64.zip
+  mirror: https://npmmirror.com/mirrors/node/v22.12.0/node-v22.12.0-win-x64.zip
+
+- name: Everything
+  version: latest
+  id: 4
+  url: https://www.voidtools.com/Everything-1.4.1.1026.x64-Setup.exe
+  args: /S
+
+- name: Putty
+  version: latest
+  id: 5
+  url: https://the.earth.li/~sgtatham/putty/0.74/w64/putty-64bit-0.74-installer.msi
+  args: -passive
+
+- name: Zabbix
+  version: latest
+  id: 6
+  url: https://cdn.zabbix.com/zabbix/binaries/stable/5.2/5.2.6/zabbix_agent-5.2.6-windows-amd64-openssl.msi
+  args: -passive SERVER=myserver.com.au

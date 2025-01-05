@@ -1,0 +1,59 @@
+version: '1.0.0.{build}'
+
+init:
+- ps: |
+      $version = new-object System.Version $env:APPVEYOR_BUILD_VERSION
+      $env:flowVersion = "{0}.{1}.{2}" -f $version.Major, $version.Minor, $version.Build
+      echo $version
+      echo $env:flowVersion
+- sc config WSearch start= auto
+- net start WSearch
+
+cache:
+  - '%USERPROFILE%\.nuget\packages -> **.sln, **.csproj'
+
+branches: 
+    only: 
+        - master
+
+assembly_info:
+  patch: true
+  file: SolutionAssemblyInfo.cs
+  assembly_version: $(flowVersion)
+  assembly_file_version: $(flowVersion)
+  assembly_informational_version: $(flowVersion)
+
+image: Visual Studio 2022
+platform: Any CPU
+configuration: Release
+before_build:
+- ps: nuget restore
+build:
+  project: Flow.Launcher.sln
+  verbosity: minimal
+after_build:
+  - ps: .\Scripts\post_build.ps1
+test: false
+
+artifacts:
+- path: 'Output\Release\Flow.Launcher.Plugin.*.nupkg'
+  name: Plugin nupkg
+- path: 'Output\Packages\Flow-Launcher-*.exe'
+  name: Squirrel Installer
+- path: Output\Packages\Flow-Launcher-Portable.zip
+  name: Portable Version
+- path: 'Output\Packages\FlowLauncher-*-full.nupkg'
+  name: Squirrel nupkg
+- path: 'Output\Packages\RELEASES'
+  name: Squirrel RELEASES
+
+deploy:
+  - provider: GitHub  
+    tag: v$(APPVEYOR_BUILD_VERSION)
+    release: v$(APPVEYOR_BUILD_VERSION)
+    description: Auto Build v$(APPVEYOR_BUILD_VERSION)
+    artifact: Squirrel Installer, Portable Version
+    auth_token:
+        secure: 4xrB/JSQKv8BSxZCKRVOZ/Pt4IfVsloqNNxkauo9RyOB7rpSmQrD9ynCekYM1d7i
+    force_update: true
+
