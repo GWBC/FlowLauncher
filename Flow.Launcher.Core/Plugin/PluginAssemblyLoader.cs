@@ -3,6 +3,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.Loader;
+using Flow.Launcher.Plugin.SharedCommands;
 
 namespace Flow.Launcher.Core.Plugin
 {
@@ -12,27 +13,57 @@ namespace Flow.Launcher.Core.Plugin
 
         private readonly AssemblyName assemblyName;
 
+        private readonly String dependencyPath;
+
         internal PluginAssemblyLoader(string assemblyFilePath)
         {
             dependencyResolver = new AssemblyDependencyResolver(assemblyFilePath);
             assemblyName = new AssemblyName(Path.GetFileNameWithoutExtension(assemblyFilePath));
+            dependencyPath = Path.GetDirectoryName(assemblyFilePath) ?? "";
         }
 
         internal Assembly LoadAssemblyAndDependencies()
         {
-            return LoadFromAssemblyName(assemblyName);
+           return Load(assemblyName);
         }
 
         protected override Assembly Load(AssemblyName assemblyName)
         {
-            string assemblyPath = dependencyResolver.ResolveAssemblyToPath(assemblyName);
+            //查看是否已经加载
+            var existAssembly = Default.Assemblies.FirstOrDefault(x => {
+                return x.FullName == assemblyName.FullName;
+            });
+            if (existAssembly != null)
+            {
+                return existAssembly;
+            }
 
-            // When resolving dependencies, ignore assembly depenedencies that already exits with Flow.Launcher
-            // Otherwise duplicate assembly will be loaded and some weird behavior will occur, such as WinRT.Runtime.dll
-            // will fail due to loading multiple versions in process, each with their own static instance of registration state
-            var existAssembly = Default.Assemblies.FirstOrDefault(x => x.FullName == assemblyName.FullName);
+            //尝试从默认程序集中加载DLL
+            try
+            {
+                existAssembly = Default.LoadFromAssemblyName(assemblyName);
+                if (existAssembly != null)
+                {
+                    return existAssembly;
+                }
+            }
+            catch
+            {
 
-            return existAssembly ?? (assemblyPath == null ? null : LoadFromAssemblyPath(assemblyPath));
+            }
+
+            //尝试从主DLL路径下加载DLL
+            var assemblyPath = dependencyResolver.ResolveAssemblyToPath(assemblyName);
+            if (assemblyPath == null)
+            {                
+                assemblyPath = Path.Join(dependencyPath, assemblyName.Name + ".dll");
+                if (!assemblyPath.FileExists())
+                {
+                    assemblyPath = null;
+                }
+            }
+           
+            return LoadFromAssemblyPath(assemblyPath);
         }
         
         protected override IntPtr LoadUnmanagedDll(string unmanagedDllName)

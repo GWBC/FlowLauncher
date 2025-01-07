@@ -178,7 +178,9 @@ namespace Flow.Launcher.Core.Plugin
                 try
                 {
                     var milliseconds = await Stopwatch.DebugAsync($"|PluginManager.InitializePlugins|Init method time cost for <{pair.Metadata.Name}>",
-                        () => pair.Plugin.InitAsync(new PluginInitContext(pair.Metadata, API)));
+                        () => {
+                            return pair.Plugin.InitAsync(new PluginInitContext(pair.Metadata, API)); 
+                        });
 
                     pair.Metadata.InitTime += milliseconds;
                     Log.Info(

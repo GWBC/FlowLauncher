@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <OutputType>Library</OutputType>
@@ -52,6 +52,9 @@
                             $(OutputPath)runtimes\maccatalyst-arm64;
                             $(OutputPath)runtimes\maccatalyst-x64;
                             $(OutputPath)runtimes\osx-arm64;
+                            $(OutputPath)runtimes\linux-musl-s390x;
+                            $(OutputPath)runtimes\win-arm;
+                            $(OutputPath)runtimes\win-arm64;
                             $(OutputPath)runtimes\osx-x64"/>
   </Target>
 
@@ -71,6 +74,9 @@
                             $(PublishDir)runtimes\maccatalyst-arm64;
                             $(PublishDir)runtimes\maccatalyst-x64;
                             $(PublishDir)runtimes\osx-arm64;
+                            $(OutputPath)runtimes\linux-musl-s390x;
+                            $(OutputPath)runtimes\win-arm;
+                            $(OutputPath)runtimes\win-arm64;
                             $(PublishDir)runtimes\osx-x64"/>
   </Target>
 
