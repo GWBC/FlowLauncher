@@ -521,7 +521,9 @@ namespace Flow.Launcher.Core.Plugin
                                         "CEA08895D2544B019B2E9C5009600DF4", // Sys
                                         "0308FD86DE0A4DEE8D62B9B535370992", // URL
                                         "565B73353DBF4806919830B9202EE3BF", // WebSearch
-                                        "5043CETYU6A748679OPA02D27D99677A" // WindowsSettings
+                                        "5043CETYU6A748679OPA02D27D99677A", // WindowsSettings
+                                        "4c52f9b9-b0e5-41f4-8370-e17774aea245", // 剪切板
+                                        "b8c38502-5a5d-426e-ae50-2b58b8443769"  // UUID
                                     };
 
             // Treat default plugin differently, it needs to be removable along with each flow release
