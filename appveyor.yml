@@ -54,6 +54,6 @@ deploy:
     description: Auto Build v$(APPVEYOR_BUILD_VERSION)
     artifact: Squirrel Installer, Portable Version
     auth_token:
-        secure: 4xrB/JSQKv8BSxZCKRVOZ/Pt4IfVsloqNNxkauo9RyOB7rpSmQrD9ynCekYM1d7i
+        secure: hHwoegRebR2QKq4GT3QmRhTxPjrcAtIFBIufsPmzhySfbjqFP2zAKmiGLICXNpqH
     force_update: true
 

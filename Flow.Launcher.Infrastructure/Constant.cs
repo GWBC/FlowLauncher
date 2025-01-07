@@ -20,10 +20,10 @@ namespace Flow.Launcher.Infrastructure
         public static readonly string RootDirectory = Directory.GetParent(ApplicationDirectory).ToString();
         
         public static readonly string PreinstalledDirectory = Path.Combine(ProgramDirectory, Plugins);
-        public const string IssuesUrl = "https://github.com/Flow-Launcher/Flow.Launcher/issues";
+        public const string IssuesUrl = "https://github.com/GWBC/Flowlauncher/issues";
         public static readonly string Version = FileVersionInfo.GetVersionInfo(Assembly.Location.NonNull()).ProductVersion;
         public static readonly string Dev = "Dev";
-        public const string Documentation = "https://flowlauncher.com/docs/#/usage-tips";
+        public const string Documentation = "https://www.flowlauncher.com/docs";
 
         public static readonly int ThumbnailSize = 64;
         private static readonly string ImagesDirectory = Path.Combine(ProgramDirectory, "Images");
@@ -50,7 +50,7 @@ namespace Flow.Launcher.Infrastructure
 
         public const string Website = "https://flowlauncher.com";
         public const string SponsorPage = "https://github.com/sponsors/Flow-Launcher";
-        public const string GitHub = "https://github.com/Flow-Launcher/Flow.Launcher";
-        public const string Docs = "https://flowlauncher.com/docs";
+        public const string GitHub = "https://github.com/GWBC/Flowlauncher";
+        public const string Docs = "https://www.flowlauncher.com/docs";
     }
 }

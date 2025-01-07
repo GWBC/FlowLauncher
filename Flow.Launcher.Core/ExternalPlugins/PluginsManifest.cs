@@ -1,4 +1,4 @@
-using Flow.Launcher.Infrastructure.Logger;
+﻿using Flow.Launcher.Infrastructure.Logger;
 using System;
 using System.Collections.Generic;
 using System.Threading;
@@ -8,16 +8,23 @@ namespace Flow.Launcher.Core.ExternalPlugins
 {
     public static class PluginsManifest
     {
+        //全球访问: 使用 cdn.jsdelivr.net，它会自动选择最佳的 CDN 节点
+        //北美/欧洲: 推荐 fastly.jsdelivr.net
+        //东欧/俄罗斯/独联体: 推荐 gcore.jsdelivr.net
+        //private static readonly CommunityPluginStore mainPluginStore =
+        //    new("https://raw.githubusercontent.com/Flow-Launcher/Flow.Launcher.PluginsManifest/plugin_api_v2/plugins.json",
+        //        "https://fastly.jsdelivr.net/gh/Flow-Launcher/Flow.Launcher.PluginsManifest@plugin_api_v2/plugins.json",
+        //        "https://gcore.jsdelivr.net/gh/Flow-Launcher/Flow.Launcher.PluginsManifest@plugin_api_v2/plugins.json",
+        //        "https://cdn.jsdelivr.net/gh/Flow-Launcher/Flow.Launcher.PluginsManifest@plugin_api_v2/plugins.json");
+
         private static readonly CommunityPluginStore mainPluginStore =
-            new("https://raw.githubusercontent.com/Flow-Launcher/Flow.Launcher.PluginsManifest/plugin_api_v2/plugins.json",
-                "https://fastly.jsdelivr.net/gh/Flow-Launcher/Flow.Launcher.PluginsManifest@plugin_api_v2/plugins.json",
-                "https://gcore.jsdelivr.net/gh/Flow-Launcher/Flow.Launcher.PluginsManifest@plugin_api_v2/plugins.json",
-                "https://cdn.jsdelivr.net/gh/Flow-Launcher/Flow.Launcher.PluginsManifest@plugin_api_v2/plugins.json");
+            new("https://cdn.jsdelivr.net/gh/Flow-Launcher/Flow.Launcher.PluginsManifest@plugin_api_v2/plugins.json",
+                "https://cdn.jsdelivr.net/gh/GWBC/FlowlauncherPlug@main/plugins.json");
 
         private static readonly SemaphoreSlim manifestUpdateLock = new(1);
 
         private static DateTime lastFetchedAt = DateTime.MinValue;
-        private static TimeSpan fetchTimeout = TimeSpan.FromMinutes(2);
+        private static TimeSpan fetchTimeout = TimeSpan.FromSeconds(60);
 
         public static List<UserPlugin> UserPlugins { get; private set; }
 

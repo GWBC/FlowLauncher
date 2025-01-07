@@ -41,8 +41,10 @@ namespace Flow.Launcher.Core.ExternalPlugins
                 {
                     // one of the requests completed successfully; keep its results
                     // and cancel the remaining http requests.
-                    pluginResults = await completedTask;
-                    cts.Cancel();
+                    //pluginResults = await completedTask;
+                    //cts.Cancel();
+
+                    pluginResults.AddRange(await completedTask);
                 }
                 tasks.Remove(completedTask);
             }

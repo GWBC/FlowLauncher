@@ -1,15 +1,15 @@
 - name: Python
   version: latest  
   id: 1  
-  url: https://www.python.org/ftp/python/3.12.8/python-3.12.8-amd64.exe
-  mirror: http://npmmirror.com/mirrors/python/3.12.8/python-3.12.8-amd64.exe
+  url: https://www.python.org/ftp/python/3.13.1/python-3.13.1-amd64.exe
+  mirror: http://npmmirror.com/mirrors/python/3.13.1/python-3.13.1-amd64.exe
   args: -passive
 
 - name: Python-Embeddable
   version: latest
   id: 2
-  url: https://www.python.org/ftp/python/3.12.8/python-3.12.8-embed-amd64.zip
-  mirror: http://npmmirror.com/mirrors/python/3.12.8/python-3.12.8-embed-amd64.zip
+  url: https://www.python.org/ftp/python/3.13.1/python-3.13.1-embed-amd64.zip
+  mirror: http://npmmirror.com/mirrors/python/3.13.1/python-3.13.1-embed-amd64.zip
 
 - name: Node.js
   version: 22.12.0
