@@ -5,7 +5,6 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Flow.Launcher", "Flow.Launcher\Flow.Launcher.csproj", "{DB90F671-D861-46BB-93A3-F1304F5BA1C5}"
 	ProjectSection(ProjectDependencies) = postProject
 		{0B9DE348-9361-4940-ADB6-F5953BFFCCEC} = {0B9DE348-9361-4940-ADB6-F5953BFFCCEC}
-		{2FEAA708-3001-43AB-8CA8-1412BF0A98DC} = {2FEAA708-3001-43AB-8CA8-1412BF0A98DC}
 		{403B57F2-1856-4FC7-8A24-36AB346B763E} = {403B57F2-1856-4FC7-8A24-36AB346B763E}
 		{4792A74A-0CEA-4173-A8B2-30E6764C6217} = {4792A74A-0CEA-4173-A8B2-30E6764C6217}
 		{5043CECE-E6A7-4867-9CBE-02D27D83747A} = {5043CECE-E6A7-4867-9CBE-02D27D83747A}
@@ -80,8 +79,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Flow.Launcher.Plugin.ClipboardPlus.Core", "Plugins\Flow.Launcher.Plugin.ClipboardPlus\Flow.Launcher.Plugin.ClipboardPlus.Core\Flow.Launcher.Plugin.ClipboardPlus.Core.csproj", "{9ABC7BFB-B058-4DCE-8C30-81F0BB09907E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Flow.Launcher.Plugin.ClipboardPlus.Panels", "Plugins\Flow.Launcher.Plugin.ClipboardPlus\Flow.Launcher.Plugin.ClipboardPlus.Panels\Flow.Launcher.Plugin.ClipboardPlus.Panels.csproj", "{8C6C9BDB-87F6-48FF-AC5C-282042BC02C2}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Flow.Launcher.Plugin.UUID", "Plugins\Flow.Launcher.Plugin.UUID\Flow.Launcher.Plugin.UUID.csproj", "{2FEAA708-3001-43AB-8CA8-1412BF0A98DC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -334,18 +331,6 @@ Global
 		{8C6C9BDB-87F6-48FF-AC5C-282042BC02C2}.Release|x64.Build.0 = Release|Any CPU
 		{8C6C9BDB-87F6-48FF-AC5C-282042BC02C2}.Release|x86.ActiveCfg = Release|Any CPU
 		{8C6C9BDB-87F6-48FF-AC5C-282042BC02C2}.Release|x86.Build.0 = Release|Any CPU
-		{2FEAA708-3001-43AB-8CA8-1412BF0A98DC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2FEAA708-3001-43AB-8CA8-1412BF0A98DC}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2FEAA708-3001-43AB-8CA8-1412BF0A98DC}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{2FEAA708-3001-43AB-8CA8-1412BF0A98DC}.Debug|x64.Build.0 = Debug|Any CPU
-		{2FEAA708-3001-43AB-8CA8-1412BF0A98DC}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{2FEAA708-3001-43AB-8CA8-1412BF0A98DC}.Debug|x86.Build.0 = Debug|Any CPU
-		{2FEAA708-3001-43AB-8CA8-1412BF0A98DC}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2FEAA708-3001-43AB-8CA8-1412BF0A98DC}.Release|Any CPU.Build.0 = Release|Any CPU
-		{2FEAA708-3001-43AB-8CA8-1412BF0A98DC}.Release|x64.ActiveCfg = Release|Any CPU
-		{2FEAA708-3001-43AB-8CA8-1412BF0A98DC}.Release|x64.Build.0 = Release|Any CPU
-		{2FEAA708-3001-43AB-8CA8-1412BF0A98DC}.Release|x86.ActiveCfg = Release|Any CPU
-		{2FEAA708-3001-43AB-8CA8-1412BF0A98DC}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -367,7 +352,6 @@ Global
 		{BD41549C-7279-4C90-9F7D-E225764CFFD6} = {2120FFB6-9C8F-4968-A433-949ED0052E7D}
 		{9ABC7BFB-B058-4DCE-8C30-81F0BB09907E} = {2120FFB6-9C8F-4968-A433-949ED0052E7D}
 		{8C6C9BDB-87F6-48FF-AC5C-282042BC02C2} = {2120FFB6-9C8F-4968-A433-949ED0052E7D}
-		{2FEAA708-3001-43AB-8CA8-1412BF0A98DC} = {3A73F5A7-0335-40D8-BF7C-F20BE5D0BA87}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F26ACB50-3F6C-4907-B0C9-1ADACC1D0DED}
