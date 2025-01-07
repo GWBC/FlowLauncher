@@ -1,0 +1,135 @@
+﻿<?xml version="1.0" ?>
+<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:system="clr-namespace:System;assembly=mscorlib">
+
+    <!--  General  -->
+    <system:String x:Key="flowlauncher_plugin_clipboardplus_plugin_name">剪切闆+</system:String>
+    <system:String x:Key="flowlauncher_plugin_clipboardplus_plugin_description">輕鬆管理你的剪切闆歴史並自定義複製規則，支持文字、圖像和文件</system:String>
+    <system:String x:Key="flowlauncher_plugin_clipboardplus_success">成功</system:String>
+    <system:String x:Key="flowlauncher_plugin_clipboardplus_fail">失敗</system:String>
+    <system:String x:Key="flowlauncher_plugin_clipboardplus_json_files">Json文件</system:String>
+    <system:String x:Key="flowlauncher_plugin_clipboardplus_all_files">所有文件</system:String>
+
+    <!--  Main  -->
+    <system:String x:Key="flowlauncher_plugin_clipboardplus_disconnect_title">取消連接剪貼版</system:String>
+    <system:String x:Key="flowlauncher_plugin_clipboardplus_disconnect_subtitle">從剪貼版取消連接以停止監視剪貼板數據</system:String>
+    <system:String x:Key="flowlauncher_plugin_clipboardplus_connect_title">連接剪貼板</system:String>
+    <system:String x:Key="flowlauncher_plugin_clipboardplus_connect_subtitle">連接到剪貼板以開始監視剪貼板數據</system:String>
+    <system:String x:Key="flowlauncher_plugin_clipboardplus_clean_title">清理剪切板</system:String>
+    <system:String x:Key="flowlauncher_plugin_clipboardplus_clean_subtitle">清理當前剪切板數據</system:String>
+    <system:String x:Key="flowlauncher_plugin_clipboardplus_clear_title">清除記録</system:String>
+    <system:String x:Key="flowlauncher_plugin_clipboardplus_clear_subtitle">打開菜單以從列錶和數據庫清除記録</system:String>
+    <system:String x:Key="flowlauncher_plugin_clipboardplus_clear_list_title">清除列錶</system:String>
+    <system:String x:Key="flowlauncher_plugin_clipboardplus_clear_list_subtitle">從列錶中清除所有記録</system:String>
+    <system:String x:Key="flowlauncher_plugin_clipboardplus_clear_list_msg_subtitle">從列錶中清除瞭{0}條記録！</system:String>
+    <system:String x:Key="flowlauncher_plugin_clipboardplus_clear_both_title">清除列錶與數據庫</system:String>
+    <system:String x:Key="flowlauncher_plugin_clipboardplus_clear_both_subtitle">從列錶和數據庫清除所有記録</system:String>
+    <system:String x:Key="flowlauncher_plugin_clipboardplus_clear_both_msg_subtitle">從列錶和數據庫清除瞭{0}條記録！</system:String>
+    <system:String x:Key="flowlauncher_plugin_clipboardplus_clear_unpin_title">清除未固定記録</system:String>
+    <system:String x:Key="flowlauncher_plugin_clipboardplus_clear_unpin_subtitle">從列錶和數據庫清除所有未固定記録</system:String>
+    <system:String x:Key="flowlauncher_plugin_clipboardplus_clear_unpin_msg_subtitle">從列錶和數據庫清除瞭{0}條未固定記録！</system:String>
+    <system:String x:Key="flowlauncher_plugin_clipboardplus_clear_invalid_title">清除無傚記録</system:String>
+    <system:String x:Key="flowlauncher_plugin_clipboardplus_clear_invalid_subtitle">從列錶和數據庫清除空文字，不存在的文件與空記錄</system:String>
+    <system:String x:Key="flowlauncher_plugin_clipboardplus_clear_invalid_msg_subtitle">從列錶和數據庫清除瞭{0}條無傚記録！</system:String>
+    <system:String x:Key="flowlauncher_plugin_clipboardplus_clear_fail_msg_subtitle">沒有可清除的記録！</system:String>
+
+    <system:String x:Key="flowlauncher_plugin_clipboardplus_copy_title">複製</system:String>
+    <system:String x:Key="flowlauncher_plugin_clipboardplus_copy_subtitle">以默認選項複製記録</system:String>
+    <system:String x:Key="flowlauncher_plugin_clipboardplus_copy_plain_text_title">複製為純文本</system:String>
+    <system:String x:Key="flowlauncher_plugin_clipboardplus_copy_plain_text_subtitle">複製記録為純文本</system:String>
+    <system:String x:Key="flowlauncher_plugin_clipboardplus_copy_rich_text_title">複製為富文本</system:String>
+    <system:String x:Key="flowlauncher_plugin_clipboardplus_copy_rich_text_subtitle">複製記録為富文本</system:String>
+    <system:String x:Key="flowlauncher_plugin_clipboardplus_copy_image_title">複製為圖像</system:String>
+    <system:String x:Key="flowlauncher_plugin_clipboardplus_copy_image_subtitle">複製記録為圖像</system:String>
+    <system:String x:Key="flowlauncher_plugin_clipboardplus_copy_image_file_title">複製為圖像文件</system:String>
+    <system:String x:Key="flowlauncher_plugin_clipboardplus_copy_image_file_subtitle">複製記録為圖像文件</system:String>
+    <system:String x:Key="flowlauncher_plugin_clipboardplus_copy_files_title">複製為文件</system:String>
+    <system:String x:Key="flowlauncher_plugin_clipboardplus_copy_files_subtitle">複製記録為文件</system:String>
+    <system:String x:Key="flowlauncher_plugin_clipboardplus_copy_sort_name_asc_title">以路徑上升方式複製為文件</system:String>
+    <system:String x:Key="flowlauncher_plugin_clipboardplus_copy_sort_name_asc_subtitle">以文件路徑上升排序的方式複製為文件</system:String>
+    <system:String x:Key="flowlauncher_plugin_clipboardplus_copy_sort_name_desc_title">以路徑下降方式複製為文件</system:String>
+    <system:String x:Key="flowlauncher_plugin_clipboardplus_copy_sort_name_desc_subtitle">以文件路徑下降排序的方式複製為文件</system:String>
+    <system:String x:Key="flowlauncher_plugin_clipboardplus_copy_file_path_title">複製為文件路徑</system:String>
+    <system:String x:Key="flowlauncher_plugin_clipboardplus_copy_file_path_subtitle">複製記録為文件路徑</system:String>
+    <system:String x:Key="flowlauncher_plugin_clipboardplus_copy_file_content_title">複製為文件內容</system:String>
+    <system:String x:Key="flowlauncher_plugin_clipboardplus_copy_file_content_subtitle">複製記録為文件內容</system:String>
+    <system:String x:Key="flowlauncher_plugin_clipboardplus_save_title">保存</system:String>
+    <system:String x:Key="flowlauncher_plugin_clipboardplus_save_subtitle">保存記録至數據庫</system:String>
+    <system:String x:Key="flowlauncher_plugin_clipboardplus_pin_title">固定</system:String>
+    <system:String x:Key="flowlauncher_plugin_clipboardplus_pin_subtitle">固定記録至列錶和數據庫</system:String>
+    <system:String x:Key="flowlauncher_plugin_clipboardplus_unpin_title">取消固定</system:String>
+    <system:String x:Key="flowlauncher_plugin_clipboardplus_unpin_subtitle">從列錶和數據庫中取消固定</system:String>
+    <system:String x:Key="flowlauncher_plugin_clipboardplus_delete_title">刪除</system:String>
+    <system:String x:Key="flowlauncher_plugin_clipboardplus_delete_subtitle">從列錶和數據庫刪除記録</system:String>
+
+    <system:String x:Key="flowlauncher_plugin_clipboardplus_unknown_app">unknown</system:String>
+
+    <system:String x:Key="flowlauncher_plugin_clipboardplus_copy_to_clipboard">複製到剪貼闆：</system:String>
+    <system:String x:Key="flowlauncher_plugin_clipboardplus_copy_to_clipboard_exception">複製到剪貼闆錯誤！</system:String>
+    <system:String x:Key="flowlauncher_plugin_clipboardplus_text_data_invalid">複製的文字爲空！</system:String>
+    <system:String x:Key="flowlauncher_plugin_clipboardplus_image_data_invalid">複製的圖像存在錯誤！</system:String>
+    <system:String x:Key="flowlauncher_plugin_clipboardplus_files_data_invalid">複製的文件不存在！</system:String>
+
+    <!--  Preview  -->
+    <system:String x:Key="flowlauncher_plugin_clipboardplus_words_count_prefix">詞數：</system:String>
+
+    <!--  Settings  -->
+    <system:String x:Key="flowlauncher_plugin_clipboardplus_clear_keyword">清除關鍵字：</system:String>
+    <system:String x:Key="flowlauncher_plugin_clipboardplus_max_records">列表最大記録數：</system:String>
+    <system:String x:Key="flowlauncher_plugin_clipboardplus_order_by">記錄排序方式：</system:String>
+    <system:String x:Key="flowlauncher_plugin_clipboardplus_action_top">在查詢中置頂/置底操作選項（如清理剪切板）</system:String>
+
+    <system:String x:Key="flowlauncher_plugin_clipboardplus_click_action">記録點擊働作：</system:String>
+    <system:String x:Key="flowlauncher_plugin_clipboardplus_default_rich_text_copy_option">富文本默認：</system:String>
+    <system:String x:Key="flowlauncher_plugin_clipboardplus_default_image_copy_option">圖片默認：</system:String>
+    <system:String x:Key="flowlauncher_plugin_clipboardplus_default_files_copy_option">文件默認：</system:String>
+
+    <system:String x:Key="flowlauncher_plugin_clipboardplus_cache_images">在文件夾中緩存剪貼闆圖片</system:String>
+    <system:String x:Key="flowlauncher_plugin_clipboardplus_open_cache_folder">打開緩存文件夾</system:String>
+    <system:String x:Key="flowlauncher_plugin_clipboardplus_clean_cache_folder">清理緩存文件夾</system:String>
+    <system:String x:Key="flowlauncher_plugin_clipboardplus_cache_format">圖片格式：</system:String>
+    <system:String x:Key="flowlauncher_plugin_clipboardplus_format_year">秊</system:String>
+    <system:String x:Key="flowlauncher_plugin_clipboardplus_format_month">月</system:String>
+    <system:String x:Key="flowlauncher_plugin_clipboardplus_format_day">日</system:String>
+    <system:String x:Key="flowlauncher_plugin_clipboardplus_format_hour">小時</system:String>
+    <system:String x:Key="flowlauncher_plugin_clipboardplus_format_minute">分鐘</system:String>
+    <system:String x:Key="flowlauncher_plugin_clipboardplus_format_second">秒</system:String>
+    <system:String x:Key="flowlauncher_plugin_clipboardplus_format_app">應用</system:String>
+    <system:String x:Key="flowlauncher_plugin_clipboardplus_cache_format_preview">預覽：</system:String>
+
+    <system:String x:Key="flowlauncher_plugin_clipboardplus_encrypt_data">加密數據庫的數據</system:String>
+    <system:String x:Key="flowlauncher_plugin_clipboardplus_keep_text">保存文本：</system:String>
+    <system:String x:Key="flowlauncher_plugin_clipboardplus_keep_images">保存圖片：</system:String>
+    <system:String x:Key="flowlauncher_plugin_clipboardplus_keep_files">保存文件：</system:String>
+    <system:String x:Key="flowlauncher_plugin_clipboardplus_import_records">導入記録</system:String>
+    <system:String x:Key="flowlauncher_plugin_clipboardplus_export_records">導出記録</system:String>
+
+    <system:String x:Key="flowlauncher_plugin_clipboardplus_export_succeeded">導出{0}條記録成功！</system:String>
+    <system:String x:Key="flowlauncher_plugin_clipboardplus_import_succeeded">導入{0}條記録成功！</system:String>
+    <system:String x:Key="flowlauncher_plugin_clipboardplus_import_failed">導入失敗！</system:String>
+
+    <!--  Enum  -->
+    <system:String x:Key="flowlauncher_plugin_clipboardplus_record_order_create_time">剏建時間</system:String>
+    <system:String x:Key="flowlauncher_plugin_clipboardplus_record_order_source_application">源應用</system:String>
+    <system:String x:Key="flowlauncher_plugin_clipboardplus_record_order_data_type">數據類型</system:String>
+
+    <system:String x:Key="flowlauncher_plugin_clipboardplus_click_action_copy">複製</system:String>
+    <system:String x:Key="flowlauncher_plugin_clipboardplus_click_action_copy_paste">複製竝粘貼</system:String>
+    <system:String x:Key="flowlauncher_plugin_clipboardplus_click_action_copy_delete_list">複製竝從列錶中刪除</system:String>
+    <system:String x:Key="flowlauncher_plugin_clipboardplus_click_action_copy_delete_both">複製竝從從列錶和數據庫刪除記録</system:String>
+    <system:String x:Key="flowlauncher_plugin_clipboardplus_click_action_copy_paste_delete_list">複製、粘貼竝從列錶中刪除記録</system:String>
+    <system:String x:Key="flowlauncher_plugin_clipboardplus_click_action_copy_paste_delete_both">複製、粘貼竝從從列錶和數據庫刪除記録</system:String>
+
+    <system:String x:Key="flowlauncher_plugin_clipboardplus_record_keep_time_always">一直</system:String>
+    <system:String x:Key="flowlauncher_plugin_clipboardplus_record_keep_time_1_hour">1小時</system:String>
+    <system:String x:Key="flowlauncher_plugin_clipboardplus_record_keep_time_12_hours">12小時</system:String>
+    <system:String x:Key="flowlauncher_plugin_clipboardplus_record_keep_time_24_hours">24小時</system:String>
+    <system:String x:Key="flowlauncher_plugin_clipboardplus_record_keep_time_3_days">3日</system:String>
+    <system:String x:Key="flowlauncher_plugin_clipboardplus_record_keep_time_7_days">7日</system:String>
+    <system:String x:Key="flowlauncher_plugin_clipboardplus_record_keep_time_1_month">1月</system:String>
+    <system:String x:Key="flowlauncher_plugin_clipboardplus_record_keep_time_3_months">3月</system:String>
+    <system:String x:Key="flowlauncher_plugin_clipboardplus_record_keep_time_1_year">1秊</system:String>
+
+</ResourceDictionary>

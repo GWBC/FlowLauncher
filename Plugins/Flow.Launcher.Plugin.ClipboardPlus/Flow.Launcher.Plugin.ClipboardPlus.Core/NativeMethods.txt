@@ -1,0 +1,8 @@
+OleInitialize
+OleUninitialize
+AddClipboardFormatListener
+RemoveClipboardFormatListener
+GetForegroundWindow
+GetWindowThreadProcessId
+GetWindowText
+WM_CLIPBOARDUPDATE
