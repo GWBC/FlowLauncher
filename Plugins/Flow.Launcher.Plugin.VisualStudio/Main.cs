@@ -6,11 +6,12 @@ using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Flow.Launcher.Plugin.VisualStudio.Properties;
 using Microsoft.Win32;
 
 namespace Flow.Launcher.Plugin.VisualStudio
 {
-    public class Main : IAsyncPlugin, IContextMenu, ISettingProvider, IAsyncReloadable
+    public class Main : IPluginI18n, IAsyncPlugin, IContextMenu, ISettingProvider, IAsyncReloadable
     {
         public PluginInitContext context;
         private VisualStudioPlugin plugin;
@@ -273,6 +274,16 @@ namespace Flow.Launcher.Plugin.VisualStudio
         public System.Windows.Controls.Control CreateSettingPanel()
         {
             return new UI.SettingsView(new UI.SettingsViewModel(settings, plugin, iconProvider, this));
+        }
+
+        public string GetTranslatedPluginTitle()
+        {
+            return Resources.PlugTitle;
+        }
+
+        public string GetTranslatedPluginDescription()
+        {
+            return Resources.PlugSubTitle;
         }
 
         public record struct TypeKeyword(int Type, string Keyword);

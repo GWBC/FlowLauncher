@@ -69,6 +69,11 @@ namespace Flow.Launcher.Plugin.VisualStudio.UI
 
         public void AddWorkspace(string path)
         {
+            if (settings.CustomWorkspaces.Contains(path))
+            {
+                return;
+            }
+
             settings.CustomWorkspaces.Add(path);
         }
 
@@ -79,6 +84,11 @@ namespace Flow.Launcher.Plugin.VisualStudio.UI
 
         public void AddEWorkspace(string path)
         {
+            if (settings.ExcludeCustomWorkspaces.Contains(path))
+            {
+                return;
+            }
+
             settings.ExcludeCustomWorkspaces.Add(path);
         }
 

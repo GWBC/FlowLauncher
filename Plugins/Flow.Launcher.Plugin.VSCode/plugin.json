@@ -1,0 +1,13 @@
+{
+  "ID": "5e7f33ca-58d5-4f09-a65e-3772fde09693",
+  "ActionKeyword": "vsc",
+  "Name": "VS Code Launcher",
+  "Decription": "Opens workspaces, remote machines (SSH or Codespaces) and containers, previously opened in VS Code.",
+  "Author": "gwbc",
+  "Version": "1.0.0",
+  "Language": "csharp",
+  "Website": "https://github.com/GWBC/FlowLauncher",
+  "ExecuteFileName": "Flow.Launcher.Plugin.VSCode.dll",
+  "IsGlobal": false,
+  "IcoPath": "Images\\code-light.png"
+}

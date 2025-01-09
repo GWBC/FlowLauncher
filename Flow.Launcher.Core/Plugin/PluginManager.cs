@@ -509,22 +509,23 @@ namespace Flow.Launcher.Core.Plugin
             var folderName = string.IsNullOrEmpty(plugin.Version) ? $"{plugin.Name}-{Guid.NewGuid()}" : $"{plugin.Name}-{plugin.Version}";
 
             var defaultPluginIDs = new List<string>
-                                    {
-                                        "0ECADE17459B49F587BF81DC3A125110", // BrowserBookmark
-                                        "CEA0FDFC6D3B4085823D60DC76F28855", // Calculator
-                                        "572be03c74c642baae319fc283e561a8", // Explorer
-                                        "6A122269676E40EB86EB543B945932B9", // PluginIndicator
-                                        "9f8f9b14-2518-4907-b211-35ab6290dee7", // PluginsManager
-                                        "b64d0a79-329a-48b0-b53f-d658318a1bf6", // ProcessKiller
-                                        "791FC278BA414111B8D1886DFE447410", // Program
-                                        "D409510CD0D2481F853690A07E6DC426", // Shell
-                                        "CEA08895D2544B019B2E9C5009600DF4", // Sys
-                                        "0308FD86DE0A4DEE8D62B9B535370992", // URL
-                                        "565B73353DBF4806919830B9202EE3BF", // WebSearch
-                                        "5043CETYU6A748679OPA02D27D99677A", // WindowsSettings
-                                        "4c52f9b9-b0e5-41f4-8370-e17774aea245", // 剪切板
-                                        "b8c38502-5a5d-426e-ae50-2b58b8443769"  // UUID
-                                    };
+            {
+                "0ECADE17459B49F587BF81DC3A125110", // BrowserBookmark
+                "CEA0FDFC6D3B4085823D60DC76F28855", // Calculator
+                "572be03c74c642baae319fc283e561a8", // Explorer
+                "6A122269676E40EB86EB543B945932B9", // PluginIndicator
+                "9f8f9b14-2518-4907-b211-35ab6290dee7", // PluginsManager
+                "b64d0a79-329a-48b0-b53f-d658318a1bf6", // ProcessKiller
+                "791FC278BA414111B8D1886DFE447410", // Program
+                "D409510CD0D2481F853690A07E6DC426", // Shell
+                "CEA08895D2544B019B2E9C5009600DF4", // Sys
+                "0308FD86DE0A4DEE8D62B9B535370992", // URL
+                "565B73353DBF4806919830B9202EE3BF", // WebSearch
+                "5043CETYU6A748679OPA02D27D99677A", // WindowsSettings
+                "360b3677-1448-4dd2-9299-37a80e757e7c", // 剪切板
+                "4d1ac616-917c-460c-9e3a-9bf4938a5158", // VS
+                "5e7f33ca-58d5-4f09-a65e-3772fde09693"  // VSCode
+            };
 
             // Treat default plugin differently, it needs to be removable along with each flow release
             var installDirectory = !defaultPluginIDs.Any(x => x == plugin.ID)

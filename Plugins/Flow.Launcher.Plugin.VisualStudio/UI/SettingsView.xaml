@@ -4,6 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:resx="clr-namespace:Flow.Launcher.Plugin.VisualStudio.Properties"
     xmlns:vm="clr-namespace:Flow.Launcher.Plugin.VisualStudio.UI"
     d:DataContext="{d:DesignInstance Type=vm:SettingsViewModel}"
     d:DesignHeight="733.57"
@@ -20,8 +21,7 @@
         <Border Style="{DynamicResource SettingGroupBox}">
             <ItemsControl Style="{StaticResource SettingGrid}">
                 <StackPanel Style="{StaticResource TextPanel}">
-                    <TextBlock Style="{DynamicResource SettingTitleLabel}" Text="Default VisualStudio" />
-                    <!--<TextBlock Style="{DynamicResource SettingSubTitleLabel}" Text="Set the default Visual Studio instance to open a search resulwith." />-->
+                    <TextBlock Style="{DynamicResource SettingTitleLabel}" Text="{x:Static resx:Resources.DefaultVisualStudio}" />
                 </StackPanel>
                 <StackPanel
                     Grid.Column="2"
@@ -57,7 +57,7 @@
                         Height="{Binding ActualHeight, ElementName=ComboBox}"
                         Margin="0 0 18 0"
                         Click="Refresh_Click"
-                        ToolTip="Reload Visual Studio Instances">
+                        ToolTip="{x:Static resx:Resources.ReloadVisualStudioInstances}">
                         <TextBlock
                             Margin="0"
                             FontSize="16"
@@ -79,7 +79,7 @@
                 SelectionMode="Extended">
                 <ListView.View>
                     <GridView>
-                        <GridViewColumn Width="500" Header="Custom Workspaces" />
+                        <GridViewColumn Width="500" Header="{x:Static resx:Resources.CustomWorkspaces}" />
                     </GridView>
                 </ListView.View>
             </ListView>
@@ -88,11 +88,11 @@
             <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
                 <Button
                     Click="Button_Click_Add"
-                    Content="Add"
+                    Content="{x:Static resx:Resources.Add}"
                     Style="{StaticResource SettingButton}" />
                 <Button
                     Click="Button_Click_Delete"
-                    Content="Delete"
+                    Content="{x:Static resx:Resources.Delete}"
                     Style="{StaticResource SettingButton}" />
             </StackPanel>
         </Border>
@@ -107,7 +107,7 @@
                 SelectionMode="Extended">
                 <ListView.View>
                     <GridView>
-                        <GridViewColumn Width="500" Header="Exclude Custom Workspaces" />
+                        <GridViewColumn Width="500" Header="{x:Static resx:Resources.ExcludeCustomWorkspaces}" />
                     </GridView>
                 </ListView.View>
             </ListView>
@@ -116,11 +116,11 @@
             <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
                 <Button
                     Click="Button_Click_EAdd"
-                    Content="Add"
+                    Content="{x:Static resx:Resources.Add}"
                     Style="{StaticResource SettingButton}" />
                 <Button
                     Click="Button_Click_EDelete"
-                    Content="Delete"
+                    Content="{x:Static resx:Resources.Delete}"
                     Style="{StaticResource SettingButton}" />
             </StackPanel>
         </Border>

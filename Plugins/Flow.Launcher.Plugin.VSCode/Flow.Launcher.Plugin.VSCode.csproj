@@ -1,0 +1,63 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net7.0-windows</TargetFramework>
+    <OutputType>Library</OutputType>
+    <UseWPF>true</UseWPF>
+    <UseWindowsForms>true</UseWindowsForms>
+    <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <AppendRuntimeIdentifierToOutputPath>False</AppendRuntimeIdentifierToOutputPath>
+    <Platforms>x64</Platforms>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <OutputPath>..\..\Output\Debug\Plugins\Flow.Launcher.Plugin.VSCode</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <OutputPath>..\..\Output\Release\Plugins\Flow.Launcher.Plugin.VSCode</OutputPath>
+  </PropertyGroup>
+  <Target Name="RemoveUnnecessaryRuntimesAfterBuild" AfterTargets="Build">
+    <RemoveDir Directories="$(OutputPath)runtimes\browser-wasm;&#xA;                            $(OutputPath)runtimes\linux-arm;&#xA;                            $(OutputPath)runtimes\linux-arm64;&#xA;                            $(OutputPath)runtimes\linux-armel;&#xA;                            $(OutputPath)runtimes\linux-mips64;&#xA;                            $(OutputPath)runtimes\linux-musl-arm;&#xA;                            $(OutputPath)runtimes\linux-musl-arm64;&#xA;                            $(OutputPath)runtimes\linux-musl-x64;&#xA;                            $(OutputPath)runtimes\linux-ppc64le;&#xA;                            $(OutputPath)runtimes\linux-s390x;&#xA;                            $(OutputPath)runtimes\linux-x64;&#xA;                            $(OutputPath)runtimes\linux-x86;&#xA;                            $(OutputPath)runtimes\maccatalyst-arm64;&#xA;                            $(OutputPath)runtimes\maccatalyst-x64;&#xA;                            $(OutputPath)runtimes\osx-arm64;&#xA;                            $(OutputPath)runtimes\linux-musl-s390x;&#xA;                            $(OutputPath)runtimes\win-arm;&#xA;                            $(OutputPath)runtimes\win-arm64;&#xA;                            $(OutputPath)runtimes\alpine-arm;&#xA;                            $(OutputPath)runtimes\alpine-arm64;&#xA;                            $(OutputPath)runtimes\alpine-x64;&#xA;                            $(OutputPath)runtimes\osx-x64" />
+  </Target>
+
+  <Target Name="RemoveUnnecessaryRuntimesAfterPublish" AfterTargets="Publish">
+    <RemoveDir Directories="$(PublishDir)runtimes\browser-wasm;&#xA;                            $(PublishDir)runtimes\linux-arm;&#xA;                            $(PublishDir)runtimes\linux-arm64;&#xA;                            $(PublishDir)runtimes\linux-armel;&#xA;                            $(PublishDir)runtimes\linux-mips64;&#xA;                            $(PublishDir)runtimes\linux-musl-arm;&#xA;                            $(PublishDir)runtimes\linux-musl-arm64;&#xA;                            $(PublishDir)runtimes\linux-musl-x64;&#xA;                            $(PublishDir)runtimes\linux-ppc64le;&#xA;                            $(PublishDir)runtimes\linux-s390x;&#xA;                            $(PublishDir)runtimes\linux-x64;&#xA;                            $(PublishDir)runtimes\linux-x86;&#xA;                            $(PublishDir)runtimes\maccatalyst-arm64;&#xA;                            $(PublishDir)runtimes\maccatalyst-x64;&#xA;                            $(PublishDir)runtimes\osx-arm64;&#xA;                            $(OutputPath)runtimes\linux-musl-s390x;&#xA;                            $(OutputPath)runtimes\win-arm;&#xA;                            $(OutputPath)runtimes\win-arm64;&#xA;                            $(OutputPath)runtimes\alpine-arm;&#xA;                            $(OutputPath)runtimes\alpine-arm64;&#xA;                            $(OutputPath)runtimes\alpine-x64;&#xA;                            $(PublishDir)runtimes\osx-x64" />
+  </Target>
+  <ItemGroup>
+    <Content Include="plugin.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Flow.Launcher.Plugin" Version="4.0.1" />
+    <PackageReference Include="JetBrains.Annotations" Version="2022.3.1" />
+    <PackageReference Include="System.Drawing.Common" Version="7.0.0" />
+    <PackageReference Include="Microsoft.Data.Sqlite" Version="7.0.1" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Update="Properties\Resources.Designer.cs">
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Update="Properties\Resources.resx">
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <Generator>PublicResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Update="Images\folder.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Images\monitor.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Images\code-dark.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Images\code-light.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+</Project>

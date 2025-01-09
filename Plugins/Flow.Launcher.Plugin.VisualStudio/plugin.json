@@ -1,8 +1,8 @@
 {
-  "ID": "CBDFA9CF044842B4A79939112240FD38",
+  "ID": "4d1ac616-917c-460c-9e3a-9bf4938a5158",
   "ActionKeyword": "vs",
   "Name": "Visual Studio Launcher",
-  "Description": "Open your recent solutions, projects and files in Visual Studio",
+  "Description": "Open your recent solutions in Visual Studio",
   "Author": "gwbc",
   "Version": "1.0.0",
   "Language": "csharp",
