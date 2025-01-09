@@ -1,0 +1,128 @@
+﻿<UserControl
+    x:Class="Flow.Launcher.Plugin.VisualStudio.UI.SettingsView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:vm="clr-namespace:Flow.Launcher.Plugin.VisualStudio.UI"
+    d:DataContext="{d:DesignInstance Type=vm:SettingsViewModel}"
+    d:DesignHeight="733.57"
+    d:DesignWidth="900"
+    mc:Ignorable="d">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Styles.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <StackPanel Margin="25 0 25 21">
+        <Border Style="{DynamicResource SettingGroupBox}">
+            <ItemsControl Style="{StaticResource SettingGrid}">
+                <StackPanel Style="{StaticResource TextPanel}">
+                    <TextBlock Style="{DynamicResource SettingTitleLabel}" Text="Default VisualStudio" />
+                    <!--<TextBlock Style="{DynamicResource SettingSubTitleLabel}" Text="Set the default Visual Studio instance to open a search resulwith." />-->
+                </StackPanel>
+                <StackPanel
+                    Grid.Column="2"
+                    VerticalAlignment="Center"
+                    Orientation="Horizontal">
+                    <ComboBox
+                        Name="ComboBox"
+                        Grid.Column="2"
+                        MinWidth="350"
+                        Margin="10 0 12 0"
+                        d:SelectedIndex="0"
+                        ItemsSource="{Binding VSInstances}"
+                        SelectedItem="{Binding SelectedVSInstance}"
+                        SelectionChanged="ComboBox_SelectionChanged">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate DataType="vm:VisualStudioModel">
+                                <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
+                                    <Image
+                                        Width="24"
+                                        Height="24"
+                                        VerticalAlignment="Center"
+                                        SnapsToDevicePixels="True"
+                                        Source="{Binding IconPath}" />
+                                    <TextBlock
+                                        Margin="8 0 0 0"
+                                        VerticalAlignment="Center"
+                                        Text="{Binding Name}" />
+                                </StackPanel>
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+                    <Button
+                        Height="{Binding ActualHeight, ElementName=ComboBox}"
+                        Margin="0 0 18 0"
+                        Click="Refresh_Click"
+                        ToolTip="Reload Visual Studio Instances">
+                        <TextBlock
+                            Margin="0"
+                            FontSize="16"
+                            Style="{StaticResource Glyph}"
+                            Text="&#xe72c;" />
+                    </Button>
+                </StackPanel>
+                <TextBlock Style="{StaticResource Glyph}" Text="&#xe7ac;" />
+            </ItemsControl>
+        </Border>
+        <Border Height="200" Style="{DynamicResource SettingGroupBox}">
+            <ListView
+                x:Name="listView"
+                Grid.Row="1"
+                Margin="14 0 14 0"
+                BorderBrush="DarkGray"
+                BorderThickness="1"
+                ItemsSource="{Binding settings.CustomWorkspaces}"
+                SelectionMode="Extended">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Width="500" Header="Custom Workspaces" />
+                    </GridView>
+                </ListView.View>
+            </ListView>
+        </Border>
+        <Border Style="{DynamicResource SettingGroupBox}">
+            <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
+                <Button
+                    Click="Button_Click_Add"
+                    Content="Add"
+                    Style="{StaticResource SettingButton}" />
+                <Button
+                    Click="Button_Click_Delete"
+                    Content="Delete"
+                    Style="{StaticResource SettingButton}" />
+            </StackPanel>
+        </Border>
+        <Border Height="200" Style="{DynamicResource SettingGroupBox}">
+            <ListView
+                x:Name="listViewExclude"
+                Grid.Row="1"
+                Margin="14 0 14 0"
+                BorderBrush="DarkGray"
+                BorderThickness="1"
+                ItemsSource="{Binding settings.ExcludeCustomWorkspaces}"
+                SelectionMode="Extended">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Width="500" Header="Exclude Custom Workspaces" />
+                    </GridView>
+                </ListView.View>
+            </ListView>
+        </Border>
+        <Border CornerRadius="0 0 9 9" Style="{DynamicResource SettingGroupBox}">
+            <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
+                <Button
+                    Click="Button_Click_EAdd"
+                    Content="Add"
+                    Style="{StaticResource SettingButton}" />
+                <Button
+                    Click="Button_Click_EDelete"
+                    Content="Delete"
+                    Style="{StaticResource SettingButton}" />
+            </StackPanel>
+        </Border>
+    </StackPanel>
+</UserControl>

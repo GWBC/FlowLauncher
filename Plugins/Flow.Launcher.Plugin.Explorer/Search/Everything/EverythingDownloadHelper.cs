@@ -1,7 +1,9 @@
 ﻿using Droplex;
 using Flow.Launcher.Plugin.SharedCommands;
 using Microsoft.Win32;
+using NuGet;
 using System;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -55,12 +57,24 @@ public static class EverythingDownloadHelper
         api.ShowMsg(api.GetTranslation("flowlauncher_plugin_everything_installing_title"),
             api.GetTranslation("flowlauncher_plugin_everything_installationsuccess_subtitle"), "", useMainWindowAsOwner: false);
 
-        installedLocation = "C:\\Program Files\\Everything\\Everything.exe";
+        //获取安装的路径
+        installedLocation = GetInstalledPath();
 
-        FilesFolders.OpenPath(installedLocation, (string str) => api.ShowMsgBox(str));
+        //为获取到，则设置默认路径
+        if (installedLocation.IsEmpty())
+        {
+            var location = Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles);
+            installedLocation = Path.Join(location, "Everything", "Everything.exe");
+        }
+
+        if (!installedLocation.FileExists())
+        {
+            return "";
+        }
+
+        Process.Start(installedLocation, "-install-service");
 
         return installedLocation;
-
     }
 
     internal static string GetInstalledPath()
@@ -87,8 +101,6 @@ public static class EverythingDownloadHelper
             }
         }
 
-        var scoopInstalledPath = Environment.ExpandEnvironmentVariables(@"%userprofile%\scoop\apps\everything\current\Everything.exe");
-        return File.Exists(scoopInstalledPath) ? scoopInstalledPath : string.Empty;
-
+        return string.Empty;
     }
 }

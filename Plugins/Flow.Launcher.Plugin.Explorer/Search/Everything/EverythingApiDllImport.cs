@@ -111,8 +111,6 @@ namespace Flow.Launcher.Plugin.Explorer.Search.Everything
         [DllImport(DLL)]
         internal static extern void Everything_Reset();
 
-        // Everything 1.4
-
         [DllImport(DLL)]
         public static extern void Everything_SetSort(SortOption dwSortType);
         [DllImport(DLL)]

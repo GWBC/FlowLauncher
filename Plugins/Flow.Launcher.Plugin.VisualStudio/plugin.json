@@ -1,0 +1,12 @@
+{
+  "ID": "CBDFA9CF044842B4A79939112240FD38",
+  "ActionKeyword": "vs",
+  "Name": "Visual Studio Launcher",
+  "Description": "Open your recent solutions, projects and files in Visual Studio",
+  "Author": "gwbc",
+  "Version": "1.0.0",
+  "Language": "csharp",
+  "Website": "https://github.com/GWBC/FlowLauncher",
+  "IcoPath": "Images\\icon.png",
+  "ExecuteFileName": "Flow.Launcher.Plugin.VisualStudio.dll"
+}

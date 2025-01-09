@@ -80,7 +80,7 @@ namespace Flow.Launcher.Plugin.Explorer
         private WindowsIndexSearchManager WindowsIndexSearchManager => _windowsIndexSearchManager ??= new WindowsIndexSearchManager(this);
 
 
-        public IndexSearchEngineOption IndexSearchEngine { get; set; } = IndexSearchEngineOption.WindowsIndex;
+        public IndexSearchEngineOption IndexSearchEngine { get; set; } = IndexSearchEngineOption.Everything;
         [JsonIgnore]
         public IIndexProvider IndexProvider => IndexSearchEngine switch
         {

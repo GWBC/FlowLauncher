@@ -14,6 +14,7 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Forms;
 using System.Windows.Input;
+using static Flow.Launcher.Plugin.Explorer.Settings;
 
 namespace Flow.Launcher.Plugin.Explorer.ViewModels
 {
