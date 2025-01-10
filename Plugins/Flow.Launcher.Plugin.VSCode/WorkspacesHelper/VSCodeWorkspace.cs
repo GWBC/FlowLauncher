@@ -24,6 +24,8 @@ namespace Flow.Launcher.Plugin.VSCode.WorkspacesHelper
 
         public VSCodeInstance VSCodeInstance { get; init; }
 
+        public DateTime LastWriteTime;
+
         public string WorkspaceTypeToString()
         {
             return TypeWorkspace switch

@@ -37,7 +37,7 @@ public partial class SettingsPaneAboutViewModel : BaseModel
 
     public string Version => Constant.Version switch
     {
-        "1.0.0" => Constant.Dev,
+        "Dev" => Constant.Dev,
         _ => Constant.Version
     };
 

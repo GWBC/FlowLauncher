@@ -171,4 +171,10 @@
   <data name="OpenFolderSubTitle" xml:space="preserve">
     <value>在默认文件管理器中打开文件夹</value>
   </data>
+  <data name="Project" xml:space="preserve">
+    <value>项目：</value>
+  </data>
+  <data name="LastWriteTime" xml:space="preserve">
+    <value>时间：</value>
+  </data>
 </root>

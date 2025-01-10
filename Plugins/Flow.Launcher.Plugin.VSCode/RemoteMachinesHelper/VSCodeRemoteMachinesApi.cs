@@ -5,6 +5,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text.Json;
 using Flow.Launcher.Plugin.VSCode.SshConfigParser;
 using Flow.Launcher.Plugin.VSCode.VSCodeHelper;
@@ -39,16 +40,28 @@ namespace Flow.Launcher.Plugin.VSCode.RemoteMachinesHelper
                                 AllowTrailingCommas = true,
                                 ReadCommentHandling = JsonCommentHandling.Skip,
                             });
-                            if (vscodeSettingsFile.TryGetProperty("remote.SSH.configFile", out var pathElement))
-                            {
-                                var path = pathElement.GetString();
 
+                            List<string> paths = new List<string>();
+
+                            //获取默认路径
+                            var userPath = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
+                            var userSshPath = Path.Combine(userPath, ".ssh", "config");
+                            paths.Add(userSshPath);
+
+                            if(vscodeSettingsFile.TryGetProperty("remote.SSH.configFile", out var pathElement))
+                            {
+                                paths.Add(pathElement.GetString());
+                            }
+
+                            foreach (var path in paths)
+                            {
                                 if (File.Exists(path))
                                 {
                                     foreach (SshHost h in SshConfig.ParseFile(path))
                                     {
                                         var machine = new VSCodeRemoteMachine();
                                         machine.Host = h.Host;
+                                        machine.Port = h.Port??"22";
                                         machine.VSCodeInstance = vscodeInstance;
                                         machine.HostName = h.HostName != null ? h.HostName : string.Empty;
                                         machine.User = h.User != null ? h.User : string.Empty;

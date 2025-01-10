@@ -133,6 +133,15 @@ namespace Flow.Launcher.Plugin.VSCode.Properties {
         }
         
         /// <summary>
+        ///   查找类似 Time:  的本地化字符串。
+        /// </summary>
+        public static string LastWriteTime {
+            get {
+                return ResourceManager.GetString("LastWriteTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Can&apos;t open this workspace 的本地化字符串。
         /// </summary>
         public static string OpenFail {
@@ -174,6 +183,15 @@ namespace Flow.Launcher.Plugin.VSCode.Properties {
         public static string PluginTitle {
             get {
                 return ResourceManager.GetString("PluginTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Project:  的本地化字符串。
+        /// </summary>
+        public static string Project {
+            get {
+                return ResourceManager.GetString("Project", resourceCulture);
             }
         }
         

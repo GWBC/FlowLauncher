@@ -13,6 +13,8 @@ namespace Flow.Launcher.Plugin.VSCode.RemoteMachinesHelper
 
         public string User { get; set; }
 
+        public string Port { get; set; }
+
         public string HostName { get; set; }
 
         public VSCodeInstance VSCodeInstance { get; set; }

@@ -50,6 +50,11 @@ namespace Flow.Launcher.Plugin.VisualStudio
 
         private IEnumerable<Entry> OtherEntry()
         {            
+            if(settings.CustomWorkspaces.Count == 0)
+            {
+                return Enumerable.Empty<Entry>();
+            }
+
             EverythingApi.Everything_GetMajorVersion();
             if(EverythingApi.Everything_GetLastError() != 0)
             {
@@ -229,7 +234,6 @@ namespace Flow.Launcher.Plugin.VisualStudio
                 var instance = plugin.VSInstances.FirstOrDefault(i => i.InstanceId == settings.DefaultVSId);
                 if (instance != null)
                 {
-                    //iconPath = iconProvider.GetIconPath(instance);
                     action = () => context.API.ShellRun($"\"{e.Path}\"", $"\"{instance.ExePath}\"");
                 }
             }
@@ -255,19 +259,6 @@ namespace Flow.Launcher.Plugin.VisualStudio
             var matchResult = context.API.FuzzySearch(search, Path.GetFileNameWithoutExtension(entry.Path));
             entryHighlightData[entry] = matchResult.MatchData;
             return matchResult.IsSearchPrecisionScoreMet();
-        }
-
-        private bool TypeSearch(Entry entry, Query query, TypeKeyword typeKeyword)
-        {
-            var search = query.Search[typeKeyword.Keyword.Length..];
-            if (string.IsNullOrWhiteSpace(search))
-            {
-                return entry.ItemType == typeKeyword.Type;
-            }
-            else
-            {
-                return entry.ItemType == typeKeyword.Type && FuzzySearch(entry, search);
-            }
         }
 
         //创建设置界面

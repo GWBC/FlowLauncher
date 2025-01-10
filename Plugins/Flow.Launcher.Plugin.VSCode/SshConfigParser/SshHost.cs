@@ -20,6 +20,12 @@ namespace Flow.Launcher.Plugin.VSCode.SshConfigParser
             set => this[nameof(Host)] = value;
         }
 
+        public string Port
+        {
+            get => this[nameof(Port)]?.ToString();
+            set => this[nameof(Port)] = value;
+        }
+
         public string HostName
         {
             get => this[nameof(HostName)]?.ToString();

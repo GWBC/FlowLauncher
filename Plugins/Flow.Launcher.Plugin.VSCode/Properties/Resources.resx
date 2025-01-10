@@ -176,4 +176,10 @@
   <data name="OpenFolderSubTitle" xml:space="preserve">
     <value>Open folder in default file manager</value>
   </data>
+  <data name="Project" xml:space="preserve">
+    <value>Project: </value>
+  </data>
+  <data name="LastWriteTime" xml:space="preserve">
+    <value>Time: </value>
+  </data>
 </root>

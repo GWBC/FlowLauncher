@@ -4,10 +4,10 @@ using System.Runtime.InteropServices;
 #if DEBUG
 
 [assembly: AssemblyConfiguration("Debug")]
-[assembly: AssemblyDescription("Debug build, https://github.com/Flow-Launcher/Flow.Launcher")]
+[assembly: AssemblyDescription("Debug build, https://github.com/GWBC/FlowLauncher")]
 #else
 [assembly: AssemblyConfiguration("Release")]
-[assembly: AssemblyDescription("Release build, https://github.com/Flow-Launcher/Flow.Launcher")]
+[assembly: AssemblyDescription("Release build, https://github.com/GWBC/FlowLauncher")]
 #endif
 
 [assembly: AssemblyCompany("Flow Launcher")]

@@ -12,6 +12,7 @@ namespace Flow.Launcher.Plugin.VSCode
     using System.ComponentModel;
     using System.Diagnostics;
     using System.Globalization;
+    using System.IO;
     using System.Linq;
     using System.Windows.Controls;
     using VSCodeHelper;
@@ -57,12 +58,23 @@ namespace Flow.Launcher.Plugin.VSCode
             {
                 _machinesApi.Machines.ForEach(a =>
                 {
-                    var title = $"{a.Host}";
+                    var title = "";
 
-                    if (!string.IsNullOrEmpty(a.User) && !string.IsNullOrEmpty(a.HostName))
+                    if (!string.IsNullOrEmpty(a.User))
                     {
-                        title += $" [{a.User}@{a.HostName}]";
+                        title += $"{a.User}@";
                     }
+
+                    if(!string.IsNullOrEmpty(a.HostName))
+                    {
+                        title += $"{a.HostName}";
+                    }
+                    else
+                    {
+                        title += $"{a.Host}";
+                    }
+
+                    title += $":{a.Port}";
 
                     var tooltip = Resources.SSHRemoteMachine;
 
@@ -114,6 +126,19 @@ namespace Flow.Launcher.Plugin.VSCode
                 }).ToList();
             }
 
+            results = results.OrderByDescending(e =>
+            {               
+                try
+                {
+                    var ctx = (VSCodeWorkspace)e.ContextData;
+                    return ctx.LastWriteTime.Second;
+                }
+                catch
+                {
+                    return 0;
+                }
+
+            }).ToList();
 
             return results;
         }
@@ -130,15 +155,18 @@ namespace Flow.Launcher.Plugin.VSCode
                     : $"{title}{(ws.ExtraInfo != null ? $" - {ws.ExtraInfo}" : string.Empty)} ({typeWorkspace})";
             }
 
-            var tooltip =
-                $"{Resources.Workspace}{(ws.TypeWorkspace != TypeWorkspace.Local ? $" {Resources.In} {typeWorkspace}" : string.Empty)}: {SystemPath.RealPath(ws.RelativePath)}";
+            var workspace = $"{Resources.Workspace}";
+            var localTip = $": {SystemPath.RealPath(ws.RelativePath)}";
 
+            var subTitle = $"{workspace} {localTip}";
+            var toolTip = $"{Resources.Project}{title}\n{Resources.LastWriteTime}{ws.LastWriteTime}";
+            
             return new Result
             {
                 Title = title,
-                SubTitle = tooltip,
+                SubTitle = subTitle,
                 Icon = ws.VSCodeInstance.WorkspaceIcon,
-                TitleToolTip = tooltip,
+                TitleToolTip = toolTip,
                 Action = c =>
                 {
                     try
