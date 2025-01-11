@@ -26,6 +26,8 @@ using System.Collections.Concurrent;
 using System.Diagnostics;
 using System.Collections.Specialized;
 using Flow.Launcher.Core;
+using System.Runtime.InteropServices;
+using Forms = System.Windows.Forms;
 
 namespace Flow.Launcher
 {
@@ -70,7 +72,10 @@ namespace Flow.Launcher
             UpdateManager.RestartApp(Constant.ApplicationFileName);
         }
 
-        public void ShowMainWindow() => _mainVM.Show();
+        public void ShowMainWindow()
+        {
+            _mainVM.Show();
+        }
 
         public void HideMainWindow() => _mainVM.Hide();
 

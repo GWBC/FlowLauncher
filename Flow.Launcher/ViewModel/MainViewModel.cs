@@ -1364,9 +1364,7 @@ namespace Flow.Launcher.ViewModel
             Application.Current.Dispatcher.Invoke(() =>
             {
                 MainWindowVisibility = Visibility.Visible;
-
                 MainWindowOpacity = 1;
-
                 MainWindowVisibilityStatus = true;
                 VisibilityChanged?.Invoke(this, new VisibilityChangedEventArgs { IsVisible = true });
             });

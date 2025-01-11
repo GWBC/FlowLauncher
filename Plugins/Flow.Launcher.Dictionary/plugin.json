@@ -1,0 +1,12 @@
+{
+  "ID": "f6dc5614-a671-4250-b4f2-532d35a66bb2",
+  "ActionKeyword": "tr",
+  "Name": "Dictionary",
+  "Description": "English dictionary and word correction.",
+  "Author": "GWBC",
+  "Version": "1.0.0",
+  "Language": "csharp",
+  "Website": "https://github.com/GWBC/FlowLauncher",
+  "IcoPath": "Images\\icon.png",
+  "ExecuteFileName": "Flow.Launcher.Plugin.Dictionary.dll"
+}

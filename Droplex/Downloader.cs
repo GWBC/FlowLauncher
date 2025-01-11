@@ -59,11 +59,11 @@ namespace Droplex
         {
             using (HttpClient cli = new HttpClient())
             {
-                cli.Timeout = TimeSpan.FromSeconds(5);
+                cli.Timeout = TimeSpan.FromSeconds(6);
 
                 try
                 {
-                    await cli.GetAsync("https://www.google.com");
+                    await cli.GetAsync("https://google.com/generate_204");
                     return true;
                 }
                 catch 

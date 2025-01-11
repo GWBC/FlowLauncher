@@ -74,9 +74,9 @@
                             $(PublishDir)runtimes\maccatalyst-arm64;
                             $(PublishDir)runtimes\maccatalyst-x64;
                             $(PublishDir)runtimes\osx-arm64;
-                            $(OutputPath)runtimes\linux-musl-s390x;
-                            $(OutputPath)runtimes\win-arm;
-                            $(OutputPath)runtimes\win-arm64;
+                            $(PublishDir)runtimes\linux-musl-s390x;
+                            $(PublishDir)runtimes\win-arm;
+                            $(PublishDir)runtimes\win-arm64;
                             $(PublishDir)runtimes\osx-x64"/>
   </Target>
 
