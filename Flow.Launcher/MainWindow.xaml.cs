@@ -55,7 +55,7 @@ namespace Flow.Launcher
             _settings = settings;
 
             InitializeComponent();
-            // Initialize call twice to work around multi-display alignment issue- https://github.com/Flow-Launcher/Flow.Launcher/issues/2910
+
             InitializePosition();
             InitializePosition();
 
@@ -70,8 +70,6 @@ namespace Flow.Launcher
                 win.AddHook(WndProc);
             };
         }
-
-        DispatcherTimer timer = new DispatcherTimer { Interval = new TimeSpan(0, 0, 0, 0, 500), IsEnabled = false };
 
         public MainWindow()
         {
