@@ -9,8 +9,8 @@ function Replace-Version($path, $version){
     Write-Output "#################################"
 }
 
-#$p = ".\"
-#$v = $env:flowVersion
-#Replace-Version $p $v
+$p = ".\"
+$v = $env:flowVersion
+Replace-Version $p $v
 
 nuget restore
