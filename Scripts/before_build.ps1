@@ -9,8 +9,8 @@ function Replace-Version($path, $version){
     Write-Output "#################################"
 }
 
-nuget restore
-
-$p = Build-Path
-$v = Build-Version
+$p = "."
+$v = $env:flowVersion
 Copy-Resources $p
+
+nuget restore

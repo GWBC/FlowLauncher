@@ -113,17 +113,9 @@ function Publish-Portable ($outputLocation, $version) {
     Compress-Archive -Path $env:LocalAppData\FlowLauncher -DestinationPath $outputLocation\Flow-Launcher-Portable.zip
 }
 
-function Replace-Version($path, $version){
-    $filePath = "$path\SolutionAssemblyInfo.cs"
-    $content = Get-Content -Path $filePath
-    $newContent = $content -replace "0.0.0.0", "$version"
-    Set-Content -Path $filePath -Value $newContent
-}
-
 function Main {
     $p = Build-Path
     $v = Build-Version
-    Copy-Resources $p
 
     if ($config -eq "Release"){
 
