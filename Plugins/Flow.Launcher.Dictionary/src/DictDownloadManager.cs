@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.IO.Compression;
 using System.Net;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Dictionary
@@ -80,7 +81,8 @@ namespace Dictionary
                     SubTitle = $"{Resources.Refresh}",
                     IcoPath = "Images\\icon.png",
                     Action = (e) => {
-                        Main.Context.API.ChangeQuery("d downloading" + new string('.',new Random().Next(0,10)));
+                        var proc = $"tr {Resources.Progress}";
+                        Main.Context.API.ChangeQuery(proc + new string('.',new Random().Next(0,10)));
                         return false;
                     }
                 }};
@@ -94,7 +96,8 @@ namespace Dictionary
                     Action = (e) =>
                     {
                         if(!downloading) PerformDownload();
-                        Main.Context.API.ChangeQuery($"tr {Resources.Progress}");
+                        var proc = $"tr {Resources.Progress}";
+                        Main.Context.API.ChangeQuery(proc);
                         return false;
                     }
                 }};

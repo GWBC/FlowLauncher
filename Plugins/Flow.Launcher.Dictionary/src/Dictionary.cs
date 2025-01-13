@@ -140,7 +140,9 @@ namespace Dictionary
             // Pull fully match first.
             var fullMatch = ecdict.Query(query.Search);
             if (fullMatch != null)
+            {
                 results.Add(MakeWordResult(fullMatch));
+            }                
 
             token.ThrowIfCancellationRequested();
             ResultsUpdated?.Invoke(this, new ResultUpdatedEventArgs
@@ -209,6 +211,7 @@ namespace Dictionary
                 if (cat == UnicodeCategory.OtherLetter)
                     return true;
             }
+
             return false;
         }
 
