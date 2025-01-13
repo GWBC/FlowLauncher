@@ -24,7 +24,7 @@ public class EngineNotAvailableException : Exception
         Resolution = resolution;
         Action = action ?? (_ =>
         {
-            Clipboard.SetDataObject(this.ToString());
+            Clipboard.SetText(this.ToString());
             return ValueTask.FromResult(true);
         });
     }
@@ -51,7 +51,7 @@ public class EngineNotAvailableException : Exception
         ErrorIcon = errorIconPath;
         Action = action ?? (_ =>
         {
-            Clipboard.SetDataObject(this.ToString());
+            Clipboard.SetText(this.ToString());
             return ValueTask.FromResult(true);
         });
     }

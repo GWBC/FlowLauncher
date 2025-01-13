@@ -146,7 +146,7 @@ namespace Flow.Launcher
                 }
                 else
                 {
-                    Clipboard.SetDataObject(stringToCopy);
+                    Clipboard.SetText(stringToCopy);
 
                     if (showDefaultNotification)
                         ShowMsg(
