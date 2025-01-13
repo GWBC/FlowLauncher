@@ -27,12 +27,12 @@ image: Visual Studio 2022
 platform: Any CPU
 configuration: Release
 before_build:
-- ps: nuget restore
+- ps: .\Scripts\before_build.ps1
 build:
   project: Flow.Launcher.sln
   verbosity: minimal
 after_build:
-  - ps: .\Scripts\post_build.ps1
+  - ps: .\Scripts\after_build.ps1
 test: false
 
 artifacts:
