@@ -3,7 +3,7 @@ version: '2.0.1.{build}'
 init:
 - ps: |
       $version = new-object System.Version $env:APPVEYOR_BUILD_VERSION
-      $env:flowVersion = "{0}.{1}.{2}.{3}" -f $version.Major, $version.Minor, $version.Build, $version.Revision
+      $env:flowVersion = "{0}.{1}.{2}" -f $version.Major, $version.Minor, $version.Build, $version.Revision
       echo $version
       echo $env:flowVersion
 - sc config WSearch start= auto
@@ -15,6 +15,13 @@ cache:
 branches: 
     only: 
         - master
+
+assembly_info:
+  patch: true
+  file: SolutionAssemblyInfo.cs
+  assembly_version: $env:APPVEYOR_BUILD_VERSION
+  assembly_file_version: $env:APPVEYOR_BUILD_VERSION
+  assembly_informational_version: $(flowVersion)
 
 image: Visual Studio 2022
 platform: Any CPU
