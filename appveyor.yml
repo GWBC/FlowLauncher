@@ -52,7 +52,7 @@ deploy:
     tag: v$(APPVEYOR_BUILD_VERSION)
     release: v$(APPVEYOR_BUILD_VERSION)
     description: Auto Build v$(APPVEYOR_BUILD_VERSION)
-    artifact: Squirrel Installer, Portable Version, Squirrel RELEASES
+    artifact: Squirrel Installer, Portable Version, Squirrel RELEASES, Squirrel nupkg
     auth_token:
         secure: hHwoegRebR2QKq4GT3QmRhTxPjrcAtIFBIufsPmzhySfbjqFP2zAKmiGLICXNpqH
     force_update: true
