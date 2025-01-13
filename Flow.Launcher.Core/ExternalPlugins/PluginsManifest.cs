@@ -28,7 +28,7 @@ namespace Flow.Launcher.Core.ExternalPlugins
 
         public static List<UserPlugin> UserPlugins { get; private set; }
 
-        public static async Task UpdateManifestAsync(CancellationToken token = default, bool usePrimaryUrlOnly = false)
+        public static async Task UpdateManifestAsync(CancellationToken token = default, bool usePrimaryUrlOnly = false, int retry = 0)
         {
             try
             {
@@ -37,14 +37,23 @@ namespace Flow.Launcher.Core.ExternalPlugins
                 if (UserPlugins == null || usePrimaryUrlOnly || DateTime.Now.Subtract(lastFetchedAt) >= fetchTimeout)
                 {
                     var results = await mainPluginStore.FetchAsync(token, usePrimaryUrlOnly).ConfigureAwait(false);
-
                     UserPlugins = results;
-                    lastFetchedAt = DateTime.Now;
+
+                    if (results != null && results.Count > 0)
+                    {
+                        lastFetchedAt = DateTime.Now;
+                    }
                 }
             }
             catch (Exception e)
             {
                 Log.Exception($"|PluginsManifest.{nameof(UpdateManifestAsync)}|Http request failed", e);
+                if(retry >= 3)
+                {
+                    return;
+                }
+
+                await UpdateManifestAsync(token, usePrimaryUrlOnly, retry + 1);
             }
             finally
             {

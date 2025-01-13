@@ -141,7 +141,7 @@ namespace Flow.Launcher
 
                     if (showDefaultNotification)
                         ShowMsg(
-                            $"{GetTranslation("copy")} {(isFile ? GetTranslation("fileTitle") : GetTranslation("folderTitle"))}",
+                            $"{GetTranslation("copy")}{(isFile ? GetTranslation("fileTitle") : GetTranslation("folderTitle"))}",
                             GetTranslation("completedSuccessfully"));
                 }
                 else
@@ -150,7 +150,7 @@ namespace Flow.Launcher
 
                     if (showDefaultNotification)
                         ShowMsg(
-                            $"{GetTranslation("copy")} {GetTranslation("textTitle")}",
+                            $"{GetTranslation("copy")}{GetTranslation("textTitle")}",
                             GetTranslation("completedSuccessfully"));
                 }
             });

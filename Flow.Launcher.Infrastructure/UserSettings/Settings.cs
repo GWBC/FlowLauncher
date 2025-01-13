@@ -188,7 +188,7 @@ namespace Flow.Launcher.Infrastructure.UserSettings
 
         public bool AlwaysPreview { get; set; } = false;
 
-        public bool AlwaysStartEn { get; set; } = false;
+        public bool AlwaysStartEn { get; set; } = true;
 
         private SearchPrecisionScore _querySearchPrecision = SearchPrecisionScore.Regular;
         [JsonInclude, JsonConverter(typeof(JsonStringEnumConverter))]

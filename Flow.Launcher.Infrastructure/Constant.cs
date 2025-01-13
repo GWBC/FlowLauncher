@@ -22,7 +22,8 @@ namespace Flow.Launcher.Infrastructure
         public static readonly string PreinstalledDirectory = Path.Combine(ProgramDirectory, Plugins);
         public const string IssuesUrl = "https://github.com/GWBC/Flowlauncher/issues";
         public static readonly string Version = FileVersionInfo.GetVersionInfo(Assembly.Location.NonNull()).ProductVersion;
-        public static readonly string Dev = "Dev";
+        public static readonly string DevVersion = "0.0.0.0";
+        public static readonly string Dev = "Dev";        
         public const string Documentation = "https://www.flowlauncher.com/docs";
 
         public static readonly int ThumbnailSize = 64;

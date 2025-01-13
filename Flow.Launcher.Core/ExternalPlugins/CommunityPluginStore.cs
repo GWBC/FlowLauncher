@@ -46,6 +46,7 @@ namespace Flow.Launcher.Core.ExternalPlugins
 
                     pluginResults.AddRange(await completedTask);
                 }
+
                 tasks.Remove(completedTask);
             }
 

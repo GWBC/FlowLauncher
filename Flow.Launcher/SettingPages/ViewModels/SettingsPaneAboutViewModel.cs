@@ -35,11 +35,18 @@ public partial class SettingsPaneAboutViewModel : BaseModel
     public string Docs => Constant.Docs;
     public string Github => Constant.GitHub;
 
-    public string Version => Constant.Version switch
+    public string Version
     {
-        "0.0.0" => Constant.Dev,
-        _ => Constant.Version
-    };
+        get
+        {
+            if (Constant.Version == Constant.DevVersion)
+            {
+                return Constant.Dev;
+            }
+
+            return Constant.Version; 
+        }
+    }
 
     public string ActivatedTimes => string.Format(
         InternationalizationManager.Instance.GetTranslation("about_activate_times"),
