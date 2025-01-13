@@ -11,6 +11,6 @@ function Replace-Version($path, $version){
 
 $p = "."
 $v = $env:flowVersion
-Copy-Resources $p
+Copy-Resources $p $v
 
 nuget restore
