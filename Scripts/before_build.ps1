@@ -9,7 +9,7 @@ function Replace-Version($path, $version){
     Write-Output "#################################"
 }
 
-$p = ""
+$p = ".\"
 $v = $env:flowVersion
 Replace-Version $p $v
 
