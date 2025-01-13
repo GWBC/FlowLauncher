@@ -355,7 +355,7 @@ namespace Flow.Launcher
             _notifyIcon = new NotifyIcon
             {
                 Text = Infrastructure.Constant.FlowLauncherFullName,
-                Icon = Constant.Version == "1.0.0" ? Properties.Resources.dev : Properties.Resources.app,
+                Icon = Constant.Version == "0.0.0" ? Properties.Resources.dev : Properties.Resources.app,
                 Visible = !_settings.HideNotifyIcon
             };
 
