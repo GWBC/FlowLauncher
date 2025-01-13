@@ -116,10 +116,9 @@ function Publish-Portable ($outputLocation, $version) {
 function Main {
     $p = Build-Path
     $v = Build-Version
+    Copy-Resources $p
 
     if ($config -eq "Release"){
-
-        Replace-Version $p $v
 
         Delete-Unused $p $config
 
