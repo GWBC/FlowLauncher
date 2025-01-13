@@ -1,4 +1,4 @@
-version: '2.0.1.{build}'
+version: '2.1.{build}'
 
 init:
 - ps: |
@@ -19,8 +19,8 @@ branches:
 assembly_info:
   patch: true
   file: SolutionAssemblyInfo.cs
-  assembly_version: $(APPVEYOR_BUILD_VERSION)
-  assembly_file_version: $(APPVEYOR_BUILD_VERSION)
+  assembly_version: $(flowVersion)
+  assembly_file_version: $(flowVersion)
   assembly_informational_version: $(flowVersion)
 
 image: Visual Studio 2022

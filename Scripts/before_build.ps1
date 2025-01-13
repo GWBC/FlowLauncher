@@ -1,7 +1,7 @@
 function Replace-Version($path, $version){
     $filePath = "$path\SolutionAssemblyInfo.cs"
     $content = Get-Content -Path $filePath
-    $newContent = $content -replace "0.0.0.0", "$version"
+    $newContent = $content -replace "0.0.0", "$version"
     Set-Content -Path $filePath -Value $newContent
     $content = Get-Content -Path $filePath
     Write-Output "#################################"
