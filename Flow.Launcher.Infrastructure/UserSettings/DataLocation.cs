@@ -13,18 +13,33 @@ namespace Flow.Launcher.Infrastructure.UserSettings
         public static string DataDirectory()
         {
             if (PortableDataLocationInUse())
+            {
                 return PortableDataPath;
-
+            }
+                
             return RoamingDataPath;
         }
 
         public static bool PortableDataLocationInUse()
         {
-            if (Directory.Exists(PortableDataPath) &&
-                !Path.Combine(PortableDataPath, DeletionIndicatorFile).FileExists())
-                return true;
+            try
+            {
+                if(!Directory.Exists(PortableDataPath))
+                {
+                    Directory.CreateDirectory(PortableDataPath);
+                }
+                
+                if(Path.Combine(PortableDataPath, DeletionIndicatorFile).FileExists())
+                {
+                    return false;
+                }
 
-            return false;
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
         }
 
         public static string PluginsDirectory {

@@ -9,8 +9,8 @@ namespace Flow.Launcher.Plugin.Shell
         public bool ReplaceWinR { get; set; } = false;
 
         public bool CloseShellAfterPress { get; set; } = false;
-        
-        public bool LeaveShellOpen { get; set; }
+
+        public bool LeaveShellOpen { get; set; } = true;
 
         public bool RunAsAdministrator { get; set; } = true;
 
