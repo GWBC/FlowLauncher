@@ -22,7 +22,11 @@ namespace Flow.Launcher.Core.Plugin
 
         public PythonPluginV2(string filename)
         {
-            StartInfo = new ProcessStartInfo { FileName = filename, };
+            StartInfo = new ProcessStartInfo 
+            { 
+                FileName = filename,
+                Verb = "runas",
+            };
 
             var path = Path.Combine(Constant.ProgramDirectory, JsonRpc);
             StartInfo.EnvironmentVariables["PYTHONPATH"] = path;

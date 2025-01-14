@@ -17,6 +17,7 @@ namespace Flow.Launcher.Core.Plugin
             _startInfo = new ProcessStartInfo
             {
                 FileName = filename,
+                Verb = "runas",
                 UseShellExecute = false,
                 CreateNoWindow = true,
                 RedirectStandardOutput = true,
