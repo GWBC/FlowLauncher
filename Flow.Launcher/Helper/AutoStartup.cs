@@ -91,7 +91,7 @@ public class AutoStartup
                 TaskDefinition td = ts.NewTask();
                 td.RegistrationInfo.Description = "Flow.Launcher Autorun";
 
-                td.Triggers.Add(new BootTrigger());
+                td.Triggers.Add(new LogonTrigger());
                 td.Actions.Add(new ExecAction(Constant.ExecutablePath,
                     null, Constant.ProgramDirectory));
                 td.Principal.RunLevel = TaskRunLevel.Highest;
