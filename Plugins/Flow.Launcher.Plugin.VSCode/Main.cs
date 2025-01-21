@@ -38,8 +38,27 @@ namespace Flow.Launcher.Plugin.VSCode
             // User defined extra workspaces
             if (defaultInstalce != null)
             {
-                workspaces.AddRange(_settings.CustomWorkspaces.Select(uri =>
-                    VSCodeWorkspacesApi.ParseVSCodeUri(uri, defaultInstalce)));
+                foreach(var path in _settings.CustomWorkspaces)
+                {   
+                    try
+                    {
+                        var paths = Directory.GetDirectories(path);
+                        foreach (var p in paths)
+                        {
+                            var vs = VSCodeWorkspacesApi.ParseVSCodeUri(new Uri(p).ToString(), defaultInstalce);
+                            if(vs == null)
+                            {
+                                continue;
+                            }
+
+                            workspaces.Add(vs);
+                        }
+                    }
+                    catch
+                    {
+
+                    }
+                }
             }
 
             // Search opened workspaces

@@ -165,7 +165,7 @@
     <value>Delete</value>
   </data>
   <data name="ExtraFolderUri" xml:space="preserve">
-    <value>Extra Folder URI</value>
+    <value>Extra Folder</value>
   </data>
   <data name="OpenFail" xml:space="preserve">
     <value>Can't open this workspace</value>

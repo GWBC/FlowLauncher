@@ -516,7 +516,7 @@ namespace Flow.Launcher.Core.Plugin
                 "6A122269676E40EB86EB543B945932B9", // PluginIndicator
                 "9f8f9b14-2518-4907-b211-35ab6290dee7", // PluginsManager
                 "b64d0a79-329a-48b0-b53f-d658318a1bf6", // ProcessKiller
-                "791FC278BA414111B8D1886DFE447410", // Program
+                "fc76b018-fc69-4755-8536-9c7443811f68", // Program
                 "D409510CD0D2481F853690A07E6DC426", // Shell
                 "CEA08895D2544B019B2E9C5009600DF4", // Sys
                 "0308FD86DE0A4DEE8D62B9B535370992", // URL

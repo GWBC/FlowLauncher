@@ -115,7 +115,7 @@ namespace Flow.Launcher.Plugin.VSCode.Properties {
         }
         
         /// <summary>
-        ///   查找类似 Extra Folder URI 的本地化字符串。
+        ///   查找类似 Extra Folder 的本地化字符串。
         /// </summary>
         public static string ExtraFolderUri {
             get {

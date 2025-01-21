@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -29,8 +30,6 @@ namespace Flow.Launcher.Plugin.Program
         private static BinaryStorage<Win32[]> _win32Storage;
         private static BinaryStorage<UWPApp[]> _uwpStorage;
 
-        private static readonly List<Result> emptyResults = new();
-
         private static readonly MemoryCacheOptions cacheOptions = new() { SizeLimit = 1560 };
         private static MemoryCache cache = new(cacheOptions);
 
@@ -58,39 +57,58 @@ namespace Flow.Launcher.Plugin.Program
                 _uwpStorage.SaveAsync(_uwps);
         }
 
+        private async Task<List<Result>> QuerySystemExeAsync(string search, CancellationToken token)
+        {
+            var resultList = await Task.Run(() =>
+            {
+                try
+                {
+                    return _win32s.Cast<IProgram>()
+                        .Concat(_uwps)
+                        .AsParallel()
+                        .WithCancellation(token)
+                        .Where(HideUninstallersFilter)
+                        .Where(p => p.Enabled)
+                        .Select(p => p.Result(search, Context.API))
+                        .Where(r => r?.Score > 0)
+                        .ToList();
+                }
+                catch (OperationCanceledException)
+                {
+                    Log.Debug("|Flow.Launcher.Plugin.Program.Main|Query operation cancelled");
+                    return new List<Result>();
+                }
+
+            }, token);
+
+            resultList = resultList.Any() ? resultList : new List<Result>();
+
+            return resultList;
+        }
+
         public async Task<List<Result>> QueryAsync(Query query, CancellationToken token)
         {
-            var result = await cache.GetOrCreateAsync(query.Search, async entry =>
+            //缓存查询结果
+            //var result = await cache.GetOrCreateAsync(query.Search, async entry =>
+            //{
+            //    var resultList = await QuerySystemExeAsync(query.Search, token);
+            //    entry.SetSize(resultList.Count);
+            //    entry.SetSlidingExpiration(TimeSpan.FromMinutes(30));
+
+            //    return resultList;
+            //});
+
+            //处理系统程序
+            var result = await QuerySystemExeAsync(query.Search, token);
+
+            //处理自定义目录
+            var dirs = _settings.ProgramSources.Where(x => x.Enabled).Select(x => x.Location).ToArray();
+
+            if (dirs.Length != 0)
             {
-                var resultList = await Task.Run(() =>
-                {
-                    try
-                    {
-                        return _win32s.Cast<IProgram>()
-                            .Concat(_uwps)
-                            .AsParallel()
-                            .WithCancellation(token)
-                            .Where(HideUninstallersFilter)
-                            .Where(p => p.Enabled)
-                            .Select(p => p.Result(query.Search, Context.API))
-                            .Where(r => r?.Score > 0)
-                            .ToList();
-                    }
-                    catch (OperationCanceledException)
-                    {
-                        Log.Debug("|Flow.Launcher.Plugin.Program.Main|Query operation cancelled");
-                        return emptyResults;
-                    }
-                   
-                }, token);
-
-                resultList = resultList.Any() ? resultList : emptyResults;
-
-                entry.SetSize(resultList.Count);
-                entry.SetSlidingExpiration(TimeSpan.FromHours(8));
-
-                return resultList;
-            });
+                var flist = Everything.EverytingFindFiles(dirs, _settings.GetSuffixes(), query.Search);
+                result.AddRange(flist.Select((x) => Everything.NewResult(x, _settings.HideAppsPath)));
+            }
 
             return result;
         }

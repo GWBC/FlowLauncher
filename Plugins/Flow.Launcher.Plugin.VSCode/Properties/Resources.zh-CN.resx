@@ -160,7 +160,7 @@
     <value>删除</value>
   </data>
   <data name="ExtraFolderUri" xml:space="preserve">
-    <value>额外的文件夹 URI</value>
+    <value>额外的文件夹</value>
   </data>
   <data name="OpenFail" xml:space="preserve">
     <value>无法打开工作区</value>

@@ -60,7 +60,10 @@
                     Click="ButtonDelete_Click"
                     Content="{x:Static resx:Resources.Delete}" />
             </StackPanel>
-            <TextBox x:Name="addUri" Margin="0 10 10 10" />
+            <TextBox
+                x:Name="addUri"
+                Margin="0 10 10 10"
+                Visibility="Hidden" />
         </DockPanel>
     </Grid>
 </UserControl>

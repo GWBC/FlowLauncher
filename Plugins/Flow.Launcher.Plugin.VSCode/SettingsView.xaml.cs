@@ -56,13 +56,15 @@ namespace Flow.Launcher.Plugin.VSCode
                     }
                 }
 
+                //不转换为URI
                 // System.Uri fails to parse vscode-remote://XXX+YYY URIs, skip them
-                var type = ParseVSCodeUri.GetTypeWorkspace(uri).TypeWorkspace;
-                if (!type.HasValue || type.Value == TypeWorkspace.Local)
-                {
-                    // Converts file paths to proper URI
-                    uri = new Uri(uri).AbsoluteUri;
-                }
+                //var type = ParseVSCodeUri.GetTypeWorkspace(uri).TypeWorkspace;
+                //if (!type.HasValue || type.Value == TypeWorkspace.Local)
+                //{
+                //    // Converts file paths to proper URI
+                //    uri = new Uri(uri).AbsoluteUri;
+                //}
+
                 addUri.Clear();
 
                 if (_settings.CustomWorkspaces.Contains(uri))

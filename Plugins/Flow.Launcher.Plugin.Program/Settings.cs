@@ -26,11 +26,11 @@ namespace Flow.Launcher.Plugin.Program
         public string[] CustomProtocols { get; set; } = Array.Empty<string>();
 
         public Dictionary<string, bool> BuiltinSuffixesStatus { get; set; } = new Dictionary<string, bool>{
-            { "exe", true }, { "appref-ms", true }, { "lnk", true }
+            { "exe", true }, { "appref-ms", false }, { "lnk", true }
         };
 
         public Dictionary<string, bool> BuiltinProtocolsStatus { get; set; } = new Dictionary<string, bool>{
-            { "steam", true }, { "epic", true }, { "http", false }
+            { "steam", false }, { "epic", false }, { "http", false }
         };
 
         [JsonIgnore]
@@ -116,8 +116,8 @@ namespace Flow.Launcher.Plugin.Program
 
         public bool EnableStartMenuSource { get; set; } = true;
         public bool EnableDescription { get; set; } = false;
-        public bool HideAppsPath { get; set; } = true;
-        public bool HideUninstallers { get; set; } = false;
+        public bool HideAppsPath { get; set; } = false;
+        public bool HideUninstallers { get; set; } = true;
         public bool EnableRegistrySource { get; set; } = true;
         public bool EnablePathSource { get; set; } = false;
         public bool EnableUWP { get; set; } = true;

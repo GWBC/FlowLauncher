@@ -62,13 +62,13 @@ namespace Flow.Launcher.Plugin.Program
 
         private void BtnReset_OnClick(object sender, RoutedEventArgs e)
         {
-            apprefMS.IsChecked = true;
+            apprefMS.IsChecked = false;
             exe.IsChecked = true;
             lnk.IsChecked = true;
             CustomFiles.IsChecked = false;
 
-            steam.IsChecked = true;
-            epic.IsChecked = true;
+            steam.IsChecked = false;
+            epic.IsChecked = false;
             http.IsChecked = false;
             CustomProtocol.IsChecked = false;
         }

@@ -49,14 +49,14 @@ namespace Flow.Launcher.Plugin.VisualStudio
         }
 
         private IEnumerable<Entry> OtherEntry()
-        {            
-            if(settings.CustomWorkspaces.Count == 0)
+        {
+            if (settings.CustomWorkspaces.Count == 0)
             {
                 return Enumerable.Empty<Entry>();
             }
 
             EverythingApi.Everything_GetMajorVersion();
-            if(EverythingApi.Everything_GetLastError() != 0)
+            if (EverythingApi.Everything_GetLastError() != 0)
             {
                 var installedLocation = GetInstalledPath();
                 Process.Start(installedLocation, "-startup");
@@ -66,16 +66,14 @@ namespace Flow.Launcher.Plugin.VisualStudio
                 {
                     return Enumerable.Empty<Entry>();
                 }
-            }            
-
-            var ws = "\"" + String.Join("\" \"", settings.CustomWorkspaces) + "\"";
-            var ews = "";
-            if (settings.ExcludeCustomWorkspaces.Count != 0)
-            {
-                ews = "!\"" + String.Join("\" !\"", settings.ExcludeCustomWorkspaces) + "\"";
             }
+
+            var dirs = settings.CustomWorkspaces.Select((x) => $"\"{x}\\\"");
+            var edirs = settings.ExcludeCustomWorkspaces.Select((x) => $"!\"{x}\\\"");
+            var strDir = string.Join(" ", dirs);
+            var strEDir = string.Join(" ", edirs);
                 
-            var search = $"*.sln {ws} {ews}";
+            var search = $"*.sln {strDir} {strEDir}";
 
             EverythingApi.Everything_SetSearchW(search);
             EverythingApi.Everything_QueryW(true);

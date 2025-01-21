@@ -676,14 +676,14 @@ namespace Flow.Launcher.Plugin.Program.Programs
                 var programs = Enumerable.Empty<Win32>();
                 var suffixes = settings.GetSuffixes();
                 var protocols = settings.GetProtocols();
-
+                
                 // Disabled custom sources are not in DisabledProgramSources
                 var sources = settings.ProgramSources.Where(s => Directory.Exists(s.Location) && s.Enabled).Distinct();
                 var commonParents = GetCommonParents(sources);
 
-                var unregistered = UnregisteredPrograms(commonParents, suffixes, protocols);
-
-                programs = programs.Concat(unregistered);
+                //对自定义目录不构建索引，使用everything
+                //var unregistered = UnregisteredPrograms(commonParents, suffixes, protocols);
+                //programs = programs.Concat(unregistered);
 
                 var autoIndexPrograms = Enumerable.Empty<Win32>(); // for single programs, not folders
 
@@ -773,8 +773,8 @@ namespace Flow.Launcher.Plugin.Program.Programs
             if (settings.EnableStartMenuSource)
                 paths.AddRange(GetStartMenuPaths());
 
-            var customSources = GetCommonParents(settings.ProgramSources);
-            paths.AddRange(customSources);
+            //var customSources = GetCommonParents(settings.ProgramSources);
+            //paths.AddRange(customSources);
 
             var fileExtensionToWatch = settings.GetSuffixes();
             foreach (var directory in from path in paths where Directory.Exists(path) select path)

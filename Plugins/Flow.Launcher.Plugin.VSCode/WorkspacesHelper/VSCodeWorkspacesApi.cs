@@ -8,6 +8,7 @@ using System.IO;
 using System.Linq;
 using System.Text.Json;
 using System.Text.RegularExpressions;
+using Flow.Launcher.Plugin.SharedCommands;
 using Flow.Launcher.Plugin.VSCode.VSCodeHelper;
 using Microsoft.Data.Sqlite;
 
@@ -48,7 +49,14 @@ namespace Flow.Launcher.Plugin.VSCode.WorkspacesHelper
 
                     try
                     {
-                        ws.LastWriteTime = Directory.GetLastWriteTime(typeWorkspace.Path);
+                        if (typeWorkspace.Path.LocationExists())
+                        {
+                            ws.LastWriteTime = Directory.GetLastWriteTime(typeWorkspace.Path);
+                        }
+                        else
+                        {
+                            ws.LastWriteTime = DateTime.MinValue;
+                        }
                     }
                     catch 
                     {
@@ -134,14 +142,15 @@ namespace Flow.Launcher.Plugin.VSCode.WorkspacesHelper
                             if (workspace == null)
                                 continue;
 
-                            if (entry.TryGetProperty("label", out var label))
-                            {
-                                var labelString = label.GetString()!;
-                                var matchGroup = workspaceLabelParser.Match(labelString);
-                                workspace = workspace with {
-                                    Lable = $"{matchGroup.Groups[2]} {matchGroup.Groups[1]}"
-                                };
-                            }
+                            //不使用vscode的标签名
+                            //if (entry.TryGetProperty("label", out var label))
+                            //{
+                            //    var labelString = label.GetString()!;
+                            //    var matchGroup = workspaceLabelParser.Match(labelString);
+                            //    workspace = workspace with {
+                            //        Lable = $"{matchGroup.Groups[2]} {matchGroup.Groups[1]}"
+                            //    };
+                            //}
 
                             results.Add(workspace);
                         }
