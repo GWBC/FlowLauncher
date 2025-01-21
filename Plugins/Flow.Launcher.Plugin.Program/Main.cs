@@ -1,18 +1,18 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Controls;
+using Flow.Launcher.Infrastructure;
 using Flow.Launcher.Infrastructure.Logger;
 using Flow.Launcher.Infrastructure.Storage;
 using Flow.Launcher.Plugin.Program.Programs;
 using Flow.Launcher.Plugin.Program.Views;
 using Flow.Launcher.Plugin.Program.Views.Models;
 using Microsoft.Extensions.Caching.Memory;
-using Path = System.IO.Path;
+
 using Stopwatch = Flow.Launcher.Infrastructure.Stopwatch;
 
 namespace Flow.Launcher.Plugin.Program
@@ -35,14 +35,12 @@ namespace Flow.Launcher.Plugin.Program
 
         private static readonly string[] commonUninstallerNames =
         {
-            "uninst.exe",
-            "unins000.exe",
-            "uninst000.exe",
-            "uninstall.exe"
+            "uninst",
+            "unins000",
+            "uninst000",
+            "uninstall",
+            "卸载"
         };
-        // For cases when the uninstaller is named like "Uninstall Program Name.exe"
-        private const string CommonUninstallerPrefix = "uninstall";
-        private const string CommonUninstallerSuffix = ".exe";
 
         static Main()
         {
@@ -66,8 +64,7 @@ namespace Flow.Launcher.Plugin.Program
                     return _win32s.Cast<IProgram>()
                         .Concat(_uwps)
                         .AsParallel()
-                        .WithCancellation(token)
-                        .Where(HideUninstallersFilter)
+                        .WithCancellation(token)                       
                         .Where(p => p.Enabled)
                         .Select(p => p.Result(search, Context.API))
                         .Where(r => r?.Score > 0)
@@ -88,6 +85,11 @@ namespace Flow.Launcher.Plugin.Program
 
         public async Task<List<Result>> QueryAsync(Query query, CancellationToken token)
         {
+            if(query.Search.Length == 0)
+            {
+                return new List<Result>();
+            }
+
             //缓存查询结果
             //var result = await cache.GetOrCreateAsync(query.Search, async entry =>
             //{
@@ -110,17 +112,45 @@ namespace Flow.Launcher.Plugin.Program
                 result.AddRange(flist.Select((x) => Everything.NewResult(x, _settings.HideAppsPath)));
             }
 
-            return result;
+            //计算分数
+            foreach (var x in result)
+            {
+                var matchResult = StringMatcher.FuzzySearch(query.Search, x.Title);
+                if (matchResult == null)
+                {
+                    continue;
+                }
+                
+                x.Score = matchResult.Score;
+                
+                //x.Title = $"{x.Title} {x.Score}";
+                //Context.API.LogInfo(GetType().Name, $"{x.Title} score:{matchResult.Score}");
+            }
+
+            var ret = result.AsParallel().OrderByDescending(x => x.Score)
+                .Take(20).Where(Filter).ToList();
+
+            return ret;
         }
 
-        private bool HideUninstallersFilter(IProgram program)
+        private bool Filter(Result res)
         {
-            if (!_settings.HideUninstallers) return true;
-            if (program is not Win32 win32) return true;
-            var fileName = Path.GetFileName(win32.ExecutablePath);
-            return !commonUninstallerNames.Contains(fileName, StringComparer.OrdinalIgnoreCase) &&
-                   !(fileName.StartsWith(CommonUninstallerPrefix, StringComparison.OrdinalIgnoreCase) &&
-                     fileName.EndsWith(CommonUninstallerSuffix, StringComparison.OrdinalIgnoreCase));
+            if(res.Title.Length == 0)
+            {
+                return false;
+            }
+
+            if (!_settings.HideUninstallers) return true;            
+            
+            foreach(var name in commonUninstallerNames)
+            {
+                if(res.Title.Contains(name, StringComparison.OrdinalIgnoreCase))
+                {
+                    return false;
+                }
+            }
+
+            return true;
         }
 
         public async Task InitAsync(PluginInitContext context)
@@ -219,28 +249,28 @@ namespace Flow.Launcher.Plugin.Program
         {
             var menuOptions = new List<Result>();
             var program = selectedResult.ContextData as IProgram;
+
             if (program != null)
             {
                 menuOptions = program.ContextMenus(Context.API);
-            }
-
-            menuOptions.Add(
-                new Result
-                {
-                    Title = Context.API.GetTranslation("flowlauncher_plugin_program_disable_program"),
-                    Action = c =>
-                    {
-                        DisableProgram(program);
-                        Context.API.ShowMsg(
-                            Context.API.GetTranslation("flowlauncher_plugin_program_disable_dlgtitle_success"),
-                            Context.API.GetTranslation(
-                                "flowlauncher_plugin_program_disable_dlgtitle_success_message"));
-                        return false;
-                    },
-                    IcoPath = "Images/disable.png",
-                    Glyph = new GlyphInfo(FontFamily: "/Resources/#Segoe Fluent Icons", Glyph: "\xece4"),
-                }
-            );
+                menuOptions.Add(
+                     new Result
+                     {
+                         Title = Context.API.GetTranslation("flowlauncher_plugin_program_disable_program"),
+                         Action = c =>
+                         {
+                             DisableProgram(program);
+                             Context.API.ShowMsg(
+                                 Context.API.GetTranslation("flowlauncher_plugin_program_disable_dlgtitle_success"),
+                                 Context.API.GetTranslation(
+                                     "flowlauncher_plugin_program_disable_dlgtitle_success_message"));
+                             return false;
+                         },
+                         IcoPath = "Images/disable.png",
+                         Glyph = new GlyphInfo(FontFamily: "/Resources/#Segoe Fluent Icons", Glyph: "\xece4"),
+                     }
+                 );
+            }         
 
             return menuOptions;
         }

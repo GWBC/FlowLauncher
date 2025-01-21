@@ -22,9 +22,9 @@ namespace Flow.Launcher.Plugin.WebSearch
         internal static string DefaultImagesDirectory;
         internal static string CustomImagesDirectory;
 
-        private readonly int scoreStandard = 50;
+        private readonly int scoreStandard = 9999;
 
-        private readonly int scoreSuggestions = 48;
+        private readonly int scoreSuggestions = 9997;
 
         private readonly string SearchSourceGlobalPluginWildCardSign = "*";
 

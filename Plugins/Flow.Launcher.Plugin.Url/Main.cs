@@ -57,7 +57,7 @@ namespace Flow.Launcher.Plugin.Url
                         Title = raw,
                         SubTitle = string.Format(context.API.GetTranslation("flowlauncher_plugin_url_open_url"),raw),
                         IcoPath = "Images/url.png",
-                        Score = 8,
+                        Score = 9900,
                         Action = _ =>
                         {
                             if (!raw.ToLower().StartsWith("http"))
