@@ -131,8 +131,20 @@ namespace Flow.Launcher.Plugin.Explorer.Search
 
             results.RemoveWhere(r => Settings.IndexSearchExcludedSubdirectoryPaths.Any(
                 excludedPath => FilesFolders.PathContains(excludedPath.Path, r.SubTitle, allowEqual: true)));
+            
+            //重新计算得分
+            foreach (var item in results)
+            {
+                var matchRet = Context.API.FuzzySearch(query.Search, item.Title);
+                if (matchRet == null)
+                {
+                    continue;
+                }
 
-            return results.ToList();
+                item.Score = matchRet.Score; 
+            }
+
+            return results.OrderByDescending(x => x.Score).ToList();
         }
 
         private bool ActionKeywordMatch(Query query, Settings.ActionKeyword allowedActionKeyword)

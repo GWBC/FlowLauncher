@@ -130,6 +130,9 @@ namespace Flow.Launcher.Plugin.Program
             var ret = result.AsParallel().OrderByDescending(x => x.Score)
                 .Take(20).Where(Filter).ToList();
 
+            //提高分数，让其在Explorer之前
+            ret.ForEach(x => x.Score += 100);
+
             return ret;
         }
 
