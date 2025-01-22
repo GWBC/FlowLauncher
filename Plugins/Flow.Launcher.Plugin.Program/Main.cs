@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -11,6 +12,7 @@ using Flow.Launcher.Infrastructure.Storage;
 using Flow.Launcher.Plugin.Program.Programs;
 using Flow.Launcher.Plugin.Program.Views;
 using Flow.Launcher.Plugin.Program.Views.Models;
+using Flow.Launcher.Plugin.SharedCommands;
 using Microsoft.Extensions.Caching.Memory;
 
 using Stopwatch = Flow.Launcher.Infrastructure.Stopwatch;
@@ -248,6 +250,73 @@ namespace Flow.Launcher.Plugin.Program
             return Context.API.GetTranslation("flowlauncher_plugin_program_plugin_description");
         }
 
+        public List<Result> CreateContextMenus(Result result)
+        {
+            if(result.CopyText.Length == 0)
+            {
+                return new List<Result>();
+            }
+
+            var api = Context.API;
+            var FullPath = result.CopyText;
+            var ParentDirectory = Path.GetDirectoryName(FullPath);
+
+            var contextMenus = new List<Result>
+            {
+                new Result
+                {
+                    Title = api.GetTranslation("flowlauncher_plugin_program_run_as_different_user"),
+                    Action = _ =>
+                    {
+                        var info = new ProcessStartInfo
+                        {
+                            FileName = FullPath, WorkingDirectory = ParentDirectory, UseShellExecute = true
+                        };
+
+                        Task.Run(() => StartProcess(ShellCommand.RunAsDifferentUser, info));
+
+                        return true;
+                    },
+                    IcoPath = "Images/user.png",
+                    Glyph = new GlyphInfo(FontFamily: "/Resources/#Segoe Fluent Icons", Glyph: "\xe7ee"),
+                },
+                new Result
+                {
+                    Title = api.GetTranslation("flowlauncher_plugin_program_run_as_administrator"),
+                    Action = _ =>
+                    {
+                        var info = new ProcessStartInfo
+                        {
+                            FileName = FullPath,
+                            WorkingDirectory = ParentDirectory,
+                            Verb = "runas",
+                            UseShellExecute = true
+                        };
+
+                        Task.Run(() => StartProcess(Process.Start, info));
+
+                        return true;
+                    },
+                    IcoPath = "Images/cmd.png",
+                    Glyph = new GlyphInfo(FontFamily: "/Resources/#Segoe Fluent Icons", Glyph: "\xe7ef"),
+                },
+                new Result
+                {
+                    Title = api.GetTranslation("flowlauncher_plugin_program_open_containing_folder"),
+                    Action = _ =>
+                    {
+                        Context.API.OpenDirectory(ParentDirectory, FullPath);
+
+                        return true;
+                    },
+                    IcoPath = "Images/folder.png",
+                    Glyph = new GlyphInfo(FontFamily: "/Resources/#Segoe Fluent Icons", Glyph: "\xe838"),
+                },
+            };
+
+            return contextMenus;
+        }
+
         public List<Result> LoadContextMenus(Result selectedResult)
         {
             var menuOptions = new List<Result>();
@@ -273,7 +342,11 @@ namespace Flow.Launcher.Plugin.Program
                          Glyph = new GlyphInfo(FontFamily: "/Resources/#Segoe Fluent Icons", Glyph: "\xece4"),
                      }
                  );
-            }         
+            }
+            else
+            {
+                menuOptions = CreateContextMenus(selectedResult);
+            }
 
             return menuOptions;
         }
