@@ -26,9 +26,12 @@ namespace Flow.Launcher.Plugin.Program.Programs
         {
             var link = new ShellLink();
             const int STGM_READ = 0;
+            const int SLR_NO_UI = 0x0001;   
             ((IPersistFile)link).Load(path, STGM_READ);
             var hwnd = new HWND(IntPtr.Zero);
-            ((IShellLinkW)link).Resolve(hwnd, 0);
+
+            //查找 lnk 快捷方式时，没有找到对应的文件不弹出对话框
+            ((IShellLinkW)link).Resolve(hwnd, SLR_NO_UI);
 
             const int MAX_PATH = 260;
             Span<char> buffer = stackalloc char[MAX_PATH];
